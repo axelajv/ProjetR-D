@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<title>SVEDI</title>
+	<link rel=stylesheet type="text/css" href="../../assets/css/home.css"/>
+	<script type="text/javascript" src="../../assets/javascript/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="../../assets/javascript/search.js"></script>
+</head>
+<body>
+
+<header>
+<div id="logo">
+	<a href="home.html"><img alt="svedi" src="../../assets/images/SVEDI-small.png"/></a>
+</div>
+<div id="searchBar">
+		<form id="newsearch" method="get" action="recherche.html">
+		        <input type="text" class="textinput" name="q" size="35" maxlength="120"><input id="btnLoupe" type="submit" value="" class="buttonSearch">
+		        <img id="loupeSearchBar" alt="loupe" src="../../assets/images/loupe.png"/>
+		</form>
+
+</div>
+
+<p id="deconnexion">
+	<a href="connexion.html">D&eacute;connexion</a>
+</p>
+</header>
+
+<div id="nav">
+	<div id="enseignant" class="ouvert">
+		<h2>Enseignant</h2>
+		<li>
+			<ul>Mon profil</ul>
+			<ul>Recherche de mati&egrave;res</ul>
+		</li>
+	</div>
+	<div id="responsable" class="ferme">
+		<h2>Responsable</h2>
+		<li>
+			<ul>Mon profil</ul>
+			<ul>Recherche de mati&egrave;res</ul>
+			<ul>Recherche de mati&egrave;res</ul>
+			<ul>Recherche de mati&egrave;res</ul>
+		</li>
+	</div>
+	<div id="notifications">
+		<h3>Notifications</h3>
+
+	</div>
+	<div id="listNotifs">	
+		<?php
+			$NbrLigneN=1;
+			for ($i=0; $i<=$NbrLigneN; $i++) 
+			{ 
+		?>
+			<div id="<?php echo $i ?>">
+			<h4><?php echo $Notification[$i][3].'-' .$Notification[$i][1] ; ?></h4>
+			<p>  
+
+				Fili&egrave;re :<span><?php echo $Notification[$i][5] ; ?></span><br/>
+				Mati&egrave;re :<span><?php echo $Notification[$i][4] ; ?></span><br/>
+				TP : <span><?php echo $Notification[$i][7] ; ?>H</span><br/>
+				TD : <span><?php echo $Notification[$i][6] ; ?>H</span><br/>
+				Cours : <span><?php echo $Notification[$i][8] ; ?>H</span><br/>
+			    Info : <span><?php echo $Notification[$i][0] ; ?></span><br/>
+			</p>
+			</div>
+			
+		<?php } ?>	
+	</div>
+</div>
+<div id="content">
+	<h4>Bienvenue Mohamed</h4>
+	<div>
+		<h5>Inscriptions valid&eacute;es</h5>
+		<?php
+			if (count($Inscription) > 0 ) {
+		?>  
+
+				<table>
+					<tr>
+						<th width="260px">Nom de la mati&egrave;re</th>
+						<th width="260px">Fili&egrave;re rattach&eacute;e</th>
+						<th width="60px">TP</th>
+						<th width="60px">TD</th>
+						<th width="60px">Cours</th>
+						<th width="60px">Total</th>
+					</tr>	
+					<?php
+					
+						$NbrCol=5; //: //le nombre de colonnes
+						$NbrLigne= count($Inscription) - 1;// : le nombre de lignes
+						 
+					
+						for ($i=0; $i<=$NbrLigne; $i++){ 
+					?>
+					<tr>
+						<?php for ($j=0; $j<=$NbrCol; $j++){ 	?>	
+							<td> <?php echo $Inscription[$i][$j]; ?>	</td>
+						<?php }  ?>
+					</tr>
+					<?php } ?>
+				</table>
+		<?php } else { ?>
+		
+			<h6>Aucune inscriptions valid&eacute;es</h6>
+		
+		
+		<?php } ?>
+		
+	</div>
+	<div>
+		<h5>Inscription en cours d'arbitrage</h5>
+		<?php
+			if (count($Conflit) > 0 ) {
+		?>  
+			<table>
+				<tr>
+					<th width="260px">Nom de la mati&egrave;re</th>
+					<th width="260px">Fili&egrave;re rattach&eacute;e</th>
+					<th width="60px">TP</th>
+					<th width="60px">TD</th>
+					<th width="60px">Cours</th>
+					<th width="60px">Total</th>
+				</tr>
+				<?php
+				
+					$NbrCol=5; //: //le nombre de colonnes
+					$NbrLigne= count($Conflit) - 1;// : le nombre de lignes
+					 
+				
+					for ($i=0; $i<=$NbrLigne; $i++){ 
+				?>
+				<tr>
+					<?php for ($j=0; $j<=$NbrCol; $j++){ 	?>	
+						<td> <?php echo $Conflit[$i][$j]; ?>	</td>
+					<?php }  ?>
+				</tr>
+				<?php } ?>
+			</table>
+		<?php } else { ?>
+		
+			<h6>Aucune inscription en cours d'arbitrage</h6>
+		
+		
+		<?php } ?>
+	</div>
+</div>
+
+<footer>
+<p>Serveur de Voeux des Enseignants du D&eacute;partement Informatique</p>
+</footer>
+</body>
+</html>
