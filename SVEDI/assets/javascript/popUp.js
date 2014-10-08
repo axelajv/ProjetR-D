@@ -1,19 +1,72 @@
 
 $(window).load(function(){ 
 
+
 /*-------POPUP functions------*/
 var showPopUp = function showPopUp(){
 	//$("#modal").show();
 	$("#modal").css("visibility", "visible");
 	$("#modal").css("opacity","1");
+	$("#msgConflit").hide();
+	$("#popUp input[type=text]").val("0");
+	$("#inscriptionDiv").show();
+	$("#confirmationDiv").hide();
+
 }
 
 var closePopUp = function closePopUp(){
 	//$("#modal").hide();
 	$("#modal").css("visibility", "hidden");
 	$("#modal").css("opacity","0");
+
+	$("#popUp input[type=text]").val("");
+}
+
+var showMsg = function showMsg(msg){
+	console.log($("#msgInfo"));
+	$("#inscriptionDiv").hide();
+
+	$("#msgInfo").text(msg);
+	$("#confirmationDiv").show();
 }
 /*----------------------------*/
+
+
+$("#popUp input[type=text]").on('change',function(){
+if($(this).val()==""){$(this).val(0);}
+});
+$("#popUp input[type=text]").on('blur',function(){
+if($(this).val()==""){$(this).val(0);}
+});
+$("#popUp input[type=text]").on('focus',function(){
+if($(this).val()=="0"){$(this).val("");}
+});
+
+/******* code prevention conflit *****/
+
+$("#popUp input[type=text]").on('input',function(){
+var conflit = false;
+
+ 	if ($("#inputHTP").val() > Number($("#TP_dispo").text())){
+			conflit = true;
+    }
+   if ($("#inputHTD").val() > Number($("#TD_dispo").text())){
+			conflit = true;
+    }
+    if ($("#inputHC").val() > Number($("#cours_dispo").text())){
+			conflit = true;
+    }
+
+    if (conflit){
+			$("#msgConflit").show();
+    }else{
+			$("#msgConflit").hide();
+	}
+
+});
+
+/*************************************/
+
 
 $("#content .resultSearch table tr td img").mouseover(function(){
 	this.src = "../../assets/images/inscriptionHover.png";
@@ -26,24 +79,75 @@ $("#content .resultSearch table tr td img").mouseout(function(){
 //futur code pour le click popUp inscription matière
 $("#content .resultSearch table tr td img").click(function(){
 	showPopUp();
-	console.log(this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].firstChild.innerHTML);
-	$("#popUpTitleMatiere").text(this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].firstChild.innerHTML);
-	console.log(this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].id);
+	var txt = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[17].innerText;
+
+
+
+	$("#popUpTitleMatiere").text(txt);
+
+	var id = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].id;
+
+$("#TP_dispo").text($("#"+id+"-HTP").val());
+$("#TD_dispo").text($("#"+id+"-HTD").val());
+$("#cours_dispo").text($("#"+id+"-HC").val());
+$("#TP_max").text($("#"+id+"-HTPMAX").val());
+$("#TD_max").text($("#"+id+"-HTDMAX").val());
+$("#cours_max").text($("#"+id+"-HCMAX").val());
+$("#ID_Matiere").val(id);
+
 });
 
 //futur code pour le click validation inscription
-var validationInscription = function(){
-console.log("ok man tu es inscrit GG");
-closePopUp();
+function validationInscription(){
+
+
+
+
+	var xhr = null;
+	
+	if (window.XMLHttpRequest || window.ActiveXObject) {
+		if (window.ActiveXObject) {
+			try {
+				xhr = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		} else {
+			xhr = new XMLHttpRequest(); 
+		}
+	} else {
+		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+		closePopUp();
+		return null;
+	}
+
+xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                // Données textuelles récupérées
+                showMsg(xhr.responseText);
+        }
+};
+xhr.open("GET", $("#baseUrl").val()+"controleurInscription/inscription/"+$("#ID_Matiere").val()+"/"+$("#inputHC").val()+"/"+$("#inputHTD").val()+"/"+$("#inputHTP").val()+"/", true);
+xhr.send(null);
+
+
 };
 
+$("#retourBtn").click(function(){
+	closePopUp();
+	location.reload().delay(250);
+});
+
 //add listener sur le click de fermeture
-$("#closePopUp").click(closePopUp);
+$(".closePopUp").click(closePopUp);
+
 $("#modal").click(function(){
 	if (!$("#popUp").is(':hover')) {
 	closePopUp();
 	}
 });
+
 $("#validerPopUp").click(validationInscription);
+
 closePopUp();
 });

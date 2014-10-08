@@ -60,7 +60,7 @@ class ModeleProfilUtilisateur extends CI_Model
 	public function Get_FormulaireDP($Id)
 	{
 	   
-	   $sql =  "SELECT Nom, Prenom, Mail, Tel , MotDePasse
+	   $sql =  "SELECT Nom, Prenom, Mail, Tel , MotDePasse, Sexe
 				FROM utilisateur
 				WHERE ID = ? ;" ;
 					
@@ -75,6 +75,7 @@ class ModeleProfilUtilisateur extends CI_Model
 		    $data[2]= $ligne['Mail'] ;
 			$data[3]= $ligne['Tel'] ;
 			$data[4]= $ligne['MotDePasse'] ;
+			$data[5]= $ligne['Sexe'];
 		}
 		
 		return ($data);
@@ -82,13 +83,14 @@ class ModeleProfilUtilisateur extends CI_Model
 	}
 	
 		
-	public function Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel)
+	public function Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel,$Sexe)
 	{
 
-	   $sql = "UPDATE utilisateur SET Nom = '" .$Nom."' ,
-				Prenom = '".$Prenom."',
-				Mail = '".$Mail."' ,
-				Tel='".$Tel."' WHERE ID = ? ;" ;
+	   $sql = "UPDATE utilisateur SET Nom = '" .addslashes($Nom)."' ,
+				Prenom = '".addslashes($Prenom)."',
+				Mail = '".addslashes($Mail)."' ,
+				Tel='".addslashes($Tel)."',
+				sexe='".$Sexe."' WHERE ID = ? ;" ;
 		
 		$param = array($Id);	 
 		$query = $this->db->query($sql,$param);	
@@ -108,5 +110,7 @@ class ModeleProfilUtilisateur extends CI_Model
 		
 	
 	}
+
+
 	
 }

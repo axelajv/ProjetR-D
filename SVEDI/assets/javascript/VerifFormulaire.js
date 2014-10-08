@@ -1,3 +1,4 @@
+
 function surligne(champ, erreur)
 {
    if(erreur)
@@ -82,7 +83,7 @@ function verifForm(f)
 
   
    if(NomOk && PrenomOk && MailOk && TelOk){
-		alert("ValiderDp");
+		//alert("ValiderDp");
 		return true;
 	}  
    else
@@ -132,23 +133,28 @@ function verifMDP(champ)
  
 function verifSimilitudeMdp(f,mdp)
 {
-
 	var AMdpOk = verifAncienMDP(f.AMdp,mdp);
 
    var Mdp1Ok = verifMDP(f.Mdp1);
 
    var Mdp2Ok = verifMDP(f.Mdp2);
- 
-   alert(f.Mdp1.value);
-   alert(f.Mdp2.value);
 
-   if(AMdpOk && Mdp1Ok &&  Mdp2Ok && f.Mdp1.value==f.Mdp2.value ){
-		alert("Validermdp");
+   if(AMdpOk && Mdp1Ok &&  Mdp2Ok && f.Mdp1.value == f.Mdp2.value ){
+		f.submit();
 		return true;
 	}  
    else
    {
-		alert("Veuillez remplir correctement tous les champs");
+      if(f.Mdp1.value != f.Mdp2.value){
+         alert("Les deux mots de passe ne concordent pas.");
+      }else{
+         if(AMdpOk){
+            alert("Veuillez choisir un mot de passe entre 6 et 24 caractères.")
+         }else{
+            alert("Veuillez saisir votre mot de passe actuel.")
+         }
+      }
+      event.preventDefault();
 		return false;
    }
    

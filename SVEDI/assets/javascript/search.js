@@ -19,7 +19,6 @@ loupe.click(function(){
 
 
 $("#enseignant").click(function(){
-	console.log("enseignant click");
 	if ($("#enseignant").hasClass("ferme") ){
 	
 		$("#enseignant").addClass("ouvert");
@@ -33,7 +32,6 @@ $("#enseignant").click(function(){
 });
 
 $("#responsable").click(function(){
-	console.log("responsable click");
 	if ($("#responsable").hasClass("ferme") ){
 		$("#responsable").addClass("ouvert");
 		$("#responsable").removeClass("ferme");

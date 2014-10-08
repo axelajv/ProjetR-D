@@ -1,11 +1,18 @@
-<?php
-
+﻿<?php 
 class ControleurProfilUtilisateur extends CI_Controller
 {
 
 	public function index()
 	{
-		$this->accueil();
+	
+		$this->load->model('ModeleConnexion');
+	    if($this->ModeleConnexion->isLoggedIn()){
+	    	$this->accueil();
+		}else{
+			$this->load->view('VueConnexion/vueHeader');
+  			$this->load->view('VueConnexion/vueConnexionInactive');
+			$this->load->view('VueConnexion/vueFooter');
+		}
 	}
 
 	public function accueil()
@@ -13,15 +20,15 @@ class ControleurProfilUtilisateur extends CI_Controller
 		$data = array();
 		
 		$Id=$this->session->userdata('Id_user');
-		$this->load->view('VueProfilUtilisateur\vueHeader');
+		$this->load->view('vueHeader');
 		
 		$data['Notification']=$this->RemplirInfoNotification($Id);
-		$this->load->view('VueProfilUtilisateur\vueNav',$data);
+		$this->load->view('vueNav',$data);
 		
 		$data['DP']=$this->RemplirFormulaireDP($Id);
-		$this->load->view('VueProfilUtilisateur\vueProfilUtilisateurContent',$data);
+		$this->load->view('vueProfilUtilisateurContent',$data);
 		
-		$this->load->view('VueProfilUtilisateur\vueFooter');
+		$this->load->view('vueFooter');
 	
 	}
 	
@@ -32,9 +39,10 @@ class ControleurProfilUtilisateur extends CI_Controller
 		$Prenom = $this->input->post('Prenom');
 		$Mail = $this->input->post('Mail');
 		$Tel = $this->input->post('Tel');
+		$Sexe = $this->input->post('Sexe');
 		
 		$this->load->model('ModeleProfilUtilisateur');
-		$this->ModeleProfilUtilisateur->Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel);
+		$this->ModeleProfilUtilisateur->Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel,$Sexe);
 		
 	    $this->accueil();
 	}
@@ -65,8 +73,8 @@ class ControleurProfilUtilisateur extends CI_Controller
 	
 	public function RemplirInfoNotification($Id)
 	{		
-		$this->load->model('ModeleProfilUtilisateur');
-		$Info=$this->ModeleProfilUtilisateur->Get_Notification($Id);
+		$this->load->model('ModeleHome');
+		$Info=$this->ModeleHome->Get_Notification($Id);
 		return ($Info);
 	}
 	
