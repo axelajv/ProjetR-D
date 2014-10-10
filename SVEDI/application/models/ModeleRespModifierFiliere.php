@@ -29,7 +29,8 @@ class ModeleRespModifierFiliere extends CI_Model
 	}
 
 	public function getListResp(){
-		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(2) order by Nom";
+		//$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(2) order by Nom";
+		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom FROM utilisateur WHERE `Role`=2 AND ID NOT IN ( SELECT ID_utilisateur FROM filiere ) order by Nom";
 		$query = $this->db->query($sql);	
 	
 		$lignes = $query->result_array();
