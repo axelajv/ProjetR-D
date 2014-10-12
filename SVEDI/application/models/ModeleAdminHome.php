@@ -155,6 +155,9 @@ public function FiliereSuppression($ID_Filiere){
 		//echo "\n\ndelete from Filiere where ID = ".$ID_Filiere."wtf";
 		$sqlDelFiliere = "delete from Filiere where ID = ".$ID_Filiere;
 		$qry = $this->db->query($sqlDelFiliere);
+		
+		$sqlDelMat = "delete from matiere where ID_Filiere = ".$ID_Filiere;
+		$query = $this->db->query($sqlDelMat);
 
 
 		return "Filière supprimée";
