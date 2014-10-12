@@ -55,7 +55,7 @@ function verifMail(champ)
 
 function verifTel(champ)
 {
-    var regex = /^0[1-689][0-9]{8}$/;
+    var regex = /^0[1-6789][0-9]{8}$/;
 	
    if(!regex.test(champ.value))
    {

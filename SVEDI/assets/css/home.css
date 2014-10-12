@@ -1,19 +1,17 @@
-/* ---------- CONNEXION ----------*/
+﻿/* ---------- CONNEXION ----------*/
 #svedi{
 margin:auto;
 width:250px;
 margin-top:40px;
 }
 
-
 #connexion{
 width:700px;
 background-color:red;
 margin:auto;
 padding:0px;
-height:340px;
+height:320px;
 background:url("../../assets/images/connexionBg.png");
-
 padding:0px;
 }
 
@@ -27,13 +25,12 @@ width:170px;
 }
 
 #connexion div{
-width:200px;
 margin:auto;
 text-align:center;
 }
 
 #connexion input[type="text"],#connexion input[type="password"]{
-	border: 1px grey solid;
+	border: 1px #cccccc solid;
 	padding:2px;
 }
 
@@ -42,10 +39,63 @@ text-align:center;
 	padding:2px;
 }
 
-#connexion .buttonSearch
-{
-	color: grey;
+#connect{
+	width:200px;
 }
+
+#recup{
+	width:300px;
+	display: none;
+}
+
+#connect p{
+	margin-right: 15px;
+}
+
+#recup p{
+	margin-right: 15px;
+}
+
+a#forgot{
+	cursor: pointer;
+}
+
+.button {
+	margin: 0;
+	padding: 4px 30px;
+	font-family: candara, calibri, thaoma, arial;
+	font-size:14px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	border: solid 1px #cccccc;
+	background: -webkit-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:    -moz-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:     -ms-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:      -o-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:         linear-gradient( to bottom, #fcfcfc, #f1efef);
+	color: #3d3d3d;
+
+	}
+
+		.button:hover {
+	text-decoration: none;
+	background: -webkit-linear-gradient( to top, #fcfcfc, #f1efef); 
+    background:    -moz-linear-gradient( to top, #fcfcfc, #f1efef); 
+    background:     -ms-linear-gradient( to top, #fcfcfc, #f1efef); 
+    background:      -o-linear-gradient( to top, #fcfcfc, #f1efef); 
+    background:         linear-gradient( to top, #fcfcfc, #f1efef);
+	}
+
+		.button:active {
+	text-decoration: none;
+	background: -webkit-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:    -moz-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:     -ms-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:      -o-linear-gradient( to bottom, #fcfcfc, #f1efef); 
+    background:         linear-gradient( to bottom, #fcfcfc, #f1efef);
+	}
 
 /* ---------- BALISES --------*/
 
@@ -56,6 +106,7 @@ body{
 	position: absolute;
 	min-height:100%;
 	background: #f4f4f4;
+	overflow: hidden;
 }
 
 header{
@@ -102,6 +153,7 @@ a img{
 p{
 	font-size: 14px;
 	font-family: candara, calibri, thaoma, arial;
+	margin-left: 15px;
 }
 
 h2{
@@ -148,13 +200,12 @@ h5{
 }
 
 h6{
-	font-size: 18px;
+	font-size: 16px;
 	font-family: candara, calibri, thaoma, arial;
-	color:#005396;
+	color:black;
 	margin:10px;
 	font-weight: bold;
-	margin: 0px;
-	
+	margin:0px;
 }
 
 
@@ -209,16 +260,25 @@ h6{
 	text-align: center;
 	text-decoration: none;
 	border: solid 1px #cccccc;
-	background-image: url("../../assets/images/loupe.png");
 	background: -webkit-linear-gradient( to bottom, #fcfcfc, #f1efef); 
     background:    -moz-linear-gradient( to bottom, #fcfcfc, #f1efef); 
     background:     -ms-linear-gradient( to bottom, #fcfcfc, #f1efef); 
     background:      -o-linear-gradient( to bottom, #fcfcfc, #f1efef); 
     background:         linear-gradient( to bottom, #fcfcfc, #f1efef);
     width:20px; 
-
+color: grey;
 
 	}
+
+	/* hack Chrome / Safari */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.buttonSearch {
+		position: relative;
+		top:3px;
+	}
+}
+
+
 	.hoverBtn{
 	text-decoration: none;
 	background: -webkit-linear-gradient( to top, #fcfcfc, #f1efef); 
@@ -226,8 +286,8 @@ h6{
     background:     -ms-linear-gradient( to top, #fcfcfc, #f1efef); 
     background:      -o-linear-gradient( to top, #fcfcfc, #f1efef); 
     background:         linear-gradient( to top, #fcfcfc, #f1efef); 
-
 	}
+
 	.buttonSearch:hover {
 	text-decoration: none;
 	background: -webkit-linear-gradient( to top, #fcfcfc, #f1efef); 
@@ -268,7 +328,7 @@ background-color: #005396;
 background-repeat: repeat-x;
 padding-bottom:5px;
 border-bottom: 1px solid #c0c0c0;
-transition:height 0.2s ease 0.3s;
+/*transition:height 0.2s ease 0.3s;*/
 }
 #enseignant h2:hover{
 	cursor: pointer;
@@ -305,13 +365,19 @@ border-bottom: 1px solid #c0c0c0;
 	height: 35px;
 }
 
+#nav a{
+ color:white;
+}
+
 #nav .ouvert li{
- /*visibility:visible;*/
+ visibility:visible;
  opacity:1;
+ z-index:999999;
 }
 
 #nav .ferme li{
- /*visibility:hidden;*/
+ visibility:hidden;
+ z-index:999;
  opacity:0;
 }
 
@@ -331,25 +397,16 @@ transition: all 0.1s ease-out 0s;
 }
 
 #listNotifs div:hover{
-	background-color: silver;
+	background-color: rgba(255,255,255,0.5);
 }
 
 
-
-#listNotifs {
-	
-	z-index:30;
-	
-	height: 250px;
-
-}
 
 #listNotifs div{
-    
-    overflow:auto;
-    padding: 8px;
-    background: none;
-    transition:all;
+	border-bottom: 1px solid #c0c0c0;
+		padding: 8px;
+	background: none;
+	transition:all;
     transition-duration:0.3s;
 }
 
@@ -371,20 +428,30 @@ font-size:14px;
 }
 
 #listNotifs span{
-	
 	color:#005396;
 }
 
 /*---------------------------------------- */
 
 /*----------------- HOME ------------------- */
+#content input[type="text"],#content input[type="password"]{
+	border: 1px #cccccc solid;
+	padding:2px;
+}
+
+#content input[type="text"]:hover,#content input[type="password"]:hover{
+	border: 1px #005396 solid;
+	padding:2px;
+}
+
 #content{
 margin-top: 0px;
 margin-left: 160px;
 background: #f4f4f4;
 width:calc(100% - 160px);
 height: calc(100% - 115px);
-position: absolute;
+position: fixed;
+overflow: auto;
 top:90px;
 }
 
@@ -428,7 +495,33 @@ top:90px;
 }
 
 /*---------------------------------------- */
+
+/***************** profil utilisateur ****************/
+table#layoutProfil{
+ border:none;
+}
+
+#content table#layoutProfil .noBg{
+	background: none;
+	border:none;
+}
+
+#content table#layoutProfil .noBg>td{
+	background: none;
+	border:none;
+	width:calc(50% - 100px);
+	padding-right: 50px;
+	vertical-align: top;
+}
+
+#layoutProfil .button{
+	margin-left: 15px;
+}
+/******************************************************/
 /*---------------- ADMIN ------------------*/
+
+
+
 
 #admin{
 margin-top: 0px;
@@ -443,6 +536,11 @@ top:90px;
 	margin-bottom: 20px;
 	margin-top: 20px;
 }
+
+#admin img[id]{
+	cursor: pointer;
+}
+
 
 #admin table{
 	border-collapse: collapse;
@@ -467,6 +565,11 @@ top:90px;
 	padding-left: 8px;
 }
 
+#admin table tr td:nth-child(6), #admin table tr td:nth-child(5), #admin table tr td:nth-child(4){
+	text-align:center;
+	padding: 1px;
+}
+
 #admin table tr td+td{
 	border-left:1px solid white;
 }
@@ -477,6 +580,28 @@ top:90px;
 	background-color: #ced8df;
 }
 
+#admin h4 {
+	margin-left: 55px;
+}
+
+#admin h6 {
+	position: relative;
+	top:-20px;
+}
+
+#admin h6 a{
+	text-decoration: none;
+}
+#admin h6 a:hover{
+	text-decoration: underline;
+}
+
+
+#admin h6 a img{
+	position: relative;
+	top:25px;
+		text-decoration: none;
+}
 
 #admin table#layout{
 	border-collapse: collapse;
@@ -497,8 +622,118 @@ top:90px;
 	border:none;
 	width:calc(50% - 100px);
 	padding-right: 50px;
+	vertical-align: top;
 }
 
+#admin img[id^="FM"],#admin img[id^="UM"]{
+	position: relative;
+	top:2px;
+}
+
+#ULog, #FLog {
+	transition: opacity;
+	transition:all 0.2s ease-out 0s;
+}
+
+
+#UserTypeLink{
+	float:right;
+	margin: 30px;
+	margin-right: 100px;
+}
+
+#UserTypeLink img{
+	position: relative;
+	top:10px;
+	margin-left:10px;
+}
+
+#retourAdminLink{
+	float:right;
+	margin-top: 30px;
+}
+
+.export img{
+	position: relative;
+	top:1px;
+}
+
+
+#popUpUser{
+margin:auto;
+width:440px;
+margin-top:200px;
+border: 1px solid #636363;
+padding:0px;
+background-color: white;
+box-shadow: 7px 7px 16px 0px rgba(0, 0, 0, 0.6);
+font-family: candara, calibri, thaoma, arial;
+font-size:14px;
+z-index: 999999;
+}
+
+#popUpUser .popUpTitle{
+background-color: #005396;
+margin:0px;
+padding:4px;
+padding-left:8px;
+font-weight:bold;
+color:white;
+font-size:16px;
+}
+
+
+#popUpUser table{
+margin:auto;
+}
+
+#popUpUser td{
+vertical-align: top;
+width:180px;
+}
+
+#popUpUser tr:nth-child(2) td{
+	padding-left: 45px;
+}
+
+
+
+#popUpStatut{
+margin:auto;
+width:280px;
+margin-top:100px;
+border: 1px solid #636363;
+padding:0px;
+background-color: white;
+box-shadow: 7px 7px 16px 0px rgba(0, 0, 0, 0.6);
+font-family: candara, calibri, thaoma, arial;
+font-size:14px;
+z-index: 999999;
+}
+
+#popUpStatut .popUpTitle{
+background-color: #005396;
+margin:0px;
+padding:4px;
+padding-left:8px;
+font-weight:bold;
+color:white;
+font-size:16px;
+}
+
+
+#popUpStatut table{
+margin:auto;
+}
+
+#popUpStatut td{
+vertical-align: top;
+width:180px;
+}
+
+#popUpStatut tr:nth-child(2) td{
+	padding-left: 45px;
+}
 
 /*-----------------------------------------*/
 
@@ -595,14 +830,28 @@ cursor:pointer;
 #content .resultSearch table tr td img{
 cursor:pointer;
 }
+
+#content li{
+	margin:20px;
+	font-family: candara, calibri, thaoma, arial;
+font-size:16px;
+}
+
+#content ul{
+	margin: 30px;
+	list-style-type: square;
+	}
+
+
 /*---------------------------------------- */
 
 /*----------------- POPUP -------------*/
 #modal{
 position:absolute;
+top:0px;
 width:100%;
-height:100%;
-z-index:99999;
+height:2000px;
+z-index:9999;
 background-color:rgba(0,0,0,0.5);
 transition:all 0.3s ease-out 0s;
 opacity:0;
@@ -618,6 +867,7 @@ background-color: white;
 box-shadow: 7px 7px 16px 0px rgba(0, 0, 0, 0.6);
 font-family: candara, calibri, thaoma, arial;
 font-size:14px;
+z-index: 999999;
 }
 
 #popUp .popUpTitle{
@@ -634,6 +884,9 @@ font-size:16px;
 border-collapse:collapse;
 width:calc(100% - 20px);
 margin:10px;
+}
+#popUp table tr:nth-child(1){
+font-size:14px;
 }
 #popUp table tr:nth-child(1){
 text-align:center;
@@ -676,52 +929,267 @@ border: 1px #005396 solid;
 padding:2px;
 }
 
-
-#popUp table input[type=submit]{
-width:100px;
-margin:auto;
-border: 1px #c0c0c0 solid;
-padding:2px;
-background: -webkit-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:    -moz-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:     -ms-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:      -o-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:         linear-gradient( to top, #fcfcfc, #f1efef); 
-}
-
-#popUp table input[type=submit]:hover {
-width:100px;
-margin:auto;
-border: 1px #005396 solid;
-padding:2px;
-background: -webkit-linear-gradient( to top, #f1efef, #fcfcfc); 
-background:    -moz-linear-gradient( to top, #f1efef, #fcfcfc); 
-background:     -ms-linear-gradient( to top, #f1efef, #fcfcfc); 
-background:      -o-linear-gradient( to top, #f1efef, #fcfcfc); 
-background:         linear-gradient( to top, #f1efef, #fcfcfc); 
-}
-
-#popUp table input[type=submit]:active {
-background: -webkit-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:    -moz-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:     -ms-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:      -o-linear-gradient( to top, #fcfcfc, #f1efef); 
-background:         linear-gradient( to top, #fcfcfc, #f1efef); 
-}
-
 .submitCell{
 text-align:center;
 }
 
-#closePopUp{
+.closePopUp{
 float:right;
 margin-right:5px;
 cursor:pointer;
 text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
 }
-#closePopUp:hover{
+.closePopUp:hover{
 float:right;
 margin-right:5px;
 cursor:pointer;
 text-shadow: 0px 0px 3px rgba(255, 255, 255, 0.5);
+}
+
+#msgConflit{
+text-align: center;
+text-decoration: italic;
+margin-right: 15px;
+font-size: 12px;
+color:#f18717;
+}
+
+#msgInfo{
+	text-align: center;
+}
+
+/*********** RESPONSABLE ********/
+#Resp img[id^="MM"]{
+	position: relative;
+	top:2px;
+}
+
+#Resp img[id^="M"]{
+	cursor: pointer;
+}
+
+#Log {
+	transition: opacity;
+	transition:all 0.2s ease-out 0s;
+}
+
+#Resp table tr td:nth-child(6),#Resp table tr td:nth-child(7){
+	text-align:center;
+	padding: 1px;
+}
+
+#Resp .respLog{
+text-align: left;
+margin-left: 310px;
+}
+
+#addMatiereResp {
+	margin-left: 300px;
+}
+
+#addMatiereResp img{
+	position: relative;
+	top:20px;
+}
+
+
+
+#popUpMatiere{
+margin:auto;
+width:300px;
+margin-top:200px;
+border: 1px solid #636363;
+padding:0px;
+background-color: white;
+box-shadow: 7px 7px 16px 0px rgba(0, 0, 0, 0.6);
+font-family: candara, calibri, thaoma, arial;
+font-size:14px;
+z-index: 9999999;
+}
+
+
+
+#popUpMatiere .contentPopUp{
+	margin-left:90px;
+}
+
+#popUpMatiere .popUpTitle{
+background-color: #005396;
+margin:0px;
+padding:4px;
+padding-left:8px;
+font-weight:bold;
+color:white;
+font-size:16px;
+}
+
+
+
+.trBleu td{
+	background: #8db0d8;
+	font-weight: bold;
+}
+
+.selectRespInscr{
+	width:500px;
+	overflow: auto;
+}
+
+.selectRespInscr option[value="-1"]{
+	background-color: #ed7f04;
+	color:white;
+}
+
+
+
+.selectRespInscr option:nth-child(2n){
+	background-color: #f0f1f2;
+}
+
+.MAX{
+		text-align: right;
+font-weight: bold;
+}
+
+.MAX::before{
+content:"Maxi. ";
+}
+.MAX::after{
+content:"h";
+}
+
+.heure::after{
+	content:"h";
+}
+
+.heure{
+	text-align: right;
+}
+
+#etatFiliere .fullTD{
+	background: #2fe638;
+		color: white;
+}
+
+#etatFiliere .conflitTD{
+	background: #e62f2f;
+	color: white;
+}
+
+
+#etatFiliere table{
+	width:850px;
+}
+
+#etatFiliere table tr td:nth-child(1),#etatFiliere table tr th:nth-child(1){
+	width:250px;
+}
+#etatFiliere table tr td:nth-child(2),#etatFiliere table tr th:nth-child(2){
+	width:250px;
+}
+
+#etatFiliere td{
+ padding-right: 8px;
+}
+/*********************************/
+
+
+/************ CLASSES **************/
+.floatRight{
+	float:right;
+}
+.floatRightResp{
+	float:right;
+	margin-right: 300px;
+}
+
+
+.block{
+	display:block;
+}
+.none{
+	display: none;
+}
+
+.floatLeft{
+	float:left;
+	margin-right: 200px;
+}
+
+.centerProfilUser{
+	clear:both;
+	margin: auto;
+	text-align: center;
+}
+
+.center{
+	text-align: center;
+}
+
+.gras{
+	font-weight: bold;
+}
+
+.full{
+	color:#f18717;
+}
+
+
+.log{
+	color:#f18717;
+	text-align: center;
+	font-size: 16px;
+}
+.logResp{
+	color:#f18717;
+	font-size: 16px;
+	margin-left: 140px;
+}
+
+div#Visible {
+  display:block;
+ margin-left: 0px;
+ 
+ }
+ 
+div#Invisible {
+  margin-left: 0px;
+
+display:none;
+ 
+}
+
+.bleu{
+	color:#005396;
+}
+
+.decal{
+	position: relative;
+	left:-100px;
+}
+
+.h6Decal{
+margin-left:25px; 
+}
+
+.auto{
+	margin:auto;
+}
+
+.rappel{
+font-style: italic;
+}
+
+
+.supprTD{
+	text-align: center;
+		padding:1px;
+
+}
+
+img[id^="IS"]{
+	position: relative;
+	right: 2px;
+	top:1px;
+	cursor: pointer;
 }

@@ -85,6 +85,7 @@
 <div id="popUpUser">
 <p class="popUpTitle"><span id="Title"></span><span class="closePopUp">X</span></p>
 <p>
+<form onsubmit="return verifForm(this)">
 	<table>
 		<tr>
 			<td colspan="2" class="center">
@@ -94,14 +95,14 @@
 		<tr>
 			<td>
 				<input id="popUpID" type="hidden" />
-				Nom : </br><input id="popUpNom" type="text" /></br></br>
-				Prenom : </br><input id="popUpPrenom" type="text" /></br></br>
-				Adresse Mail : </br><input id="popUpMail" type="text" /></br></br>
-				T&eacute;l&eacute;phone : </br><input id="popUpTel" type="text" /></br>
+				Nom : </br><input id="popUpNom" type="text" onblur="verifNom(this)" /></br></br>
+				Prenom : </br><input id="popUpPrenom" type="text" onblur="verifPrenom(this)" /></br></br>
+				Adresse Mail : </br><input id="popUpMail" type="text" onblur="verifMail(this)" /></br></br>
+				T&eacute;l&eacute;phone : </br><input id="popUpTel"  type="text" onblur="verifTel(this)" /></br>
 			</td>	
 			<td>
-				Login : </br><input id="popUpLogin" type="text" /></br></br>
-				Mot de passe : </br><input id="popUpMdp" type="text" /></br></br>
+				Login : </br><input id="popUpLogin" type="text" onblur="verifNom(this)" /></br></br>
+				Mot de passe : </br><input id="popUpMdp" type="text" onblur="verifMDP(this)" /></br></br>
 				Rôle : </br>
 				<?php echo $Roles; ?>
 				</br></br>
@@ -112,7 +113,7 @@
 	</table>
 </p>
 <p class="log" id="msgInfo"></p>
-	<p class="center"><input class="button" type="submit" value="Modifier" id="validerUM"/><input class="button" type="submit" value="Cr&eacute;er" id="validerUA"/></p>
-
+	<p class="center"><input class="button" type="submit" value="Modifier" id="validerUM"/><input class="button" type="submit" value="Cr&eacute;er" id="validerUA" onsubmit="return verifForm(this)"/></p>
+</form>
 </div>
 </div>
