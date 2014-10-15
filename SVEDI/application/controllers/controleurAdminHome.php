@@ -6,6 +6,7 @@ class controleurAdminHome extends CI_Controller
 	public function loadView()
 	{
 		$dataHead['Key'] = $this->input->get('search');
+		$data['Id_user']=$this->session->userdata('Id_user');
 		$data['Users']= $this->getListUser();
 		$data['Filieres']=$this->getListFiliere();
 		$data['Roles'] = $this->getListRoles();
@@ -34,6 +35,7 @@ class controleurAdminHome extends CI_Controller
 
 	public function log(){
 		$dataHead['Key'] = $this->input->get('search');
+		$data['Id_user']=$this->session->userdata('Id_user');
 		$data['Users']= $this->getListUser();
 		$data['Filieres']=$this->getListFiliere();
 		$data['Roles'] = $this->getListRoles();
@@ -114,7 +116,7 @@ class controleurAdminHome extends CI_Controller
 		$this->load->model('ModeleAdminHome');
 		$Info=$this->ModeleAdminHome->UtilisateurAdd($this->input->get('Prenom'),$this->input->get('Nom'),$this->input->get('Mail'),$this->input->get('Sexe'),$this->input->get('Tel'),$this->input->get('Login'),$this->input->get('Mdp'),$this->input->get('Role'),$this->input->get('Type'));
 
-	 return null;
+		return null;
 	}
 
 	public function FS()

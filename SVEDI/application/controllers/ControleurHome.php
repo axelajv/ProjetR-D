@@ -12,7 +12,7 @@ class ControleurHome extends CI_Controller
 		$data = array();
 		
 	
-		$Id=$this->session->userdata('Id_user');
+		$Id_user=$this->session->userdata('Id_user');
 		
 		$data['Nom']=$this->session->userdata('Nom');
 

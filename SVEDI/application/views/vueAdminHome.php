@@ -36,7 +36,15 @@
 								<input type ="hidden" value="<?php echo $Users[$i]['U_Type'];?>" id="U<?php echo $Users[$i]['U_ID'];?>-Type"/>
 								</form>
 								<img id="UM<?php echo $Users[$i]['U_ID'];?>" src="../../assets/images/iconeModifier.png"/></td>
-							<td><img id="US<?php echo $Users[$i]['U_ID'];?>" src="../../assets/images/iconeSupprimer.png"/></td>
+								<td>
+						<?php 
+							if($Users[$i]['U_ID'] != $Id_user) {
+						?>
+							<img id="US<?php echo $Users[$i]['U_ID'];?>" src="../../assets/images/iconeSupprimer.png"/>
+						<?php 
+							}
+						?>
+							</td>
 						</tr>
 						<?php 
 							}
@@ -85,7 +93,7 @@
 <div id="popUpUser">
 <p class="popUpTitle"><span id="Title"></span><span class="closePopUp">X</span></p>
 <p>
-<form onsubmit="return verifForm(this)">
+
 	<table>
 		<tr>
 			<td colspan="2" class="center">
@@ -114,6 +122,6 @@
 </p>
 <p class="log" id="msgInfo"></p>
 	<p class="center"><input class="button" type="submit" value="Modifier" id="validerUM"/><input class="button" type="submit" value="Cr&eacute;er" id="validerUA" onsubmit="return verifForm(this)"/></p>
-</form>
+
 </div>
 </div>
