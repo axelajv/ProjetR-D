@@ -112,6 +112,45 @@ var showPopUpM = function showPopUp(title,type,id){
 	$("#validerUM").click(function(){
 	var xhr = null;
 	
+	var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+	var regexTel = /^0[1-6789][0-9]{8}$/;
+	
+	if($("#popUpPrenom").val().length < 2 || $("#popUpPrenom").val().length > 25)
+	{
+		alert(" Veuillez-remplir tous le champ Prénom correctement");
+		return false;
+	}
+	
+	if($("#popUpNom").val().length < 2 || $("#popUpNom").val().length > 25)
+	{
+		alert(" Veuillez-remplir  le champ nom correctement");
+		return false;
+	}
+	
+	if($("#popUpLogin").val().length < 2 || $("#popUpLogin").val().length > 25)
+	{
+		alert(" Veuillez-remplir le champ login correctement ");
+		return false;
+	}
+	
+	if(!regex.test($("#popUpMail").val()))
+	{
+		alert(" Veuillez-remplir le champs mail correctement");
+		return false;	
+	}
+	
+	if(!regexTel.test($("#popUpTel").val()))
+	{
+		alert(" Veuillez-remplir le champ téléphone correctement");
+		return false;	
+	}
+	
+	if($("#popUpMdp").val() < 6 || $("#popUpMdp").val().length > 25)
+	{
+		alert(" Veuillez-remplir le champs mot de passe correctement");
+		return false;	
+	}
+	
 	if (window.XMLHttpRequest || window.ActiveXObject) {
 		if (window.ActiveXObject) {
 			try {
@@ -156,6 +195,45 @@ var showPopUpM = function showPopUp(title,type,id){
 //aaplication des modifications sur utilisateur
 	$("#validerUA").click(function(){
 	var xhr = null;
+	
+	var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
+	var regexTel = /^0[1-6789][0-9]{8}$/;
+	
+	if($("#popUpPrenom").val().length < 2 || $("#popUpPrenom").val().length > 25)
+	{
+		alert(" Veuillez-remplir tous le champ Prénom correctement");
+		return false;
+	}
+	
+	if($("#popUpNom").val().length < 2 || $("#popUpNom").val().length > 25)
+	{
+		alert(" Veuillez-remplir  le champ nom correctement");
+		return false;
+	}
+	
+	if($("#popUpLogin").val().length < 2 || $("#popUpLogin").val().length > 25)
+	{
+		alert(" Veuillez-remplir le champ login correctement ");
+		return false;
+	}
+	
+	if(!regex.test($("#popUpMail").val()))
+	{
+		alert(" Veuillez-remplir le champs mail correctement");
+		return false;	
+	}
+	
+	if(!regexTel.test($("#popUpTel").val()))
+	{
+		alert(" Veuillez-remplir le champ téléphone correctement");
+		return false;	
+	}
+	
+	if($("#popUpMdp").val() < 6 || $("#popUpMdp").val().length > 25)
+	{
+		alert(" Veuillez-remplir le champs mot de passe correctement");
+		return false;	
+	}
 	
 	if (window.XMLHttpRequest || window.ActiveXObject) {
 		if (window.ActiveXObject) {
