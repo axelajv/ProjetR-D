@@ -20,11 +20,22 @@
 <body>
 
 <header>
+	
 	<div id="logo">
 		<a href="../controleurAdminhome/"><img alt="svedi" src="../../assets/images/SVEDI-small.png"/></a>
 	</div>
-
+	
+	<div id="Date">
+		 <a id="gaucheDate"  href=""><img alt="" src="../../assets/images/DateGauche.png"></a>
+		
+		 <label id="centreDate" value="<?php echo $Date;?>"><?php echo $Date;?></label>
+		 
+		 <a id="droiteDate"  href="../ControleurAdminHome/AnneePlus?id=<?php echo $Date;?>"><img alt="" src="../../assets/images/DateDroite.png"></a>
+	</div>
+	
 	<p id="deconnexion">
 		<a href="../ControleurConnexion/deconnect">D&eacute;connexion</a>
 	</p>
+	
+	
 </header>

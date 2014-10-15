@@ -6,6 +6,7 @@ class controleurAdminHome extends CI_Controller
 	public function loadView()
 	{
 		$dataHead['Key'] = $this->input->get('search');
+		$dataHead['Date'] = $this->getDate();
 		$data['Id_user']=$this->session->userdata('Id_user');
 		$data['Users']= $this->getListUser();
 		$data['Filieres']=$this->getListFiliere();
@@ -53,6 +54,22 @@ class controleurAdminHome extends CI_Controller
 		$this->load->view('vueHeaderAdmin',$dataHead);
 		$this->load->view('vueAdminHome',$data);
 		$this->load->view('vueFooter');
+	}
+	
+
+	public function AnneePlus(){
+		
+		$DateActuelle= $this->input->get('id');
+	
+		$dataHead['Key'] = $this->input->get('search');
+		$dataHead['Date'] = $DateActuelle + 1 ;
+		$this->load->view('vueHeaderAdmin',$dataHead);
+		
+	}
+	
+	public function getDate(){
+		
+		return  date("Y");
 	}
 
 	public function getListUser(){

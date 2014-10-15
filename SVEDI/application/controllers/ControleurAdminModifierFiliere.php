@@ -22,6 +22,8 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		
 		$id=$this->input->get('id');
 
+		$data['Date'] =$this->getDate();
+		
 		$this->load->view('vueHeaderAdmin',$data);
 
 		if($this->input->get('id')){
@@ -99,6 +101,12 @@ class ControleurAdminModifierFiliere extends CI_Controller
 	}
 
 
+	
+	
+	public function getDate(){
+		
+		return  date("Y");
+	}
 
 	public function RemplirInfoNotification($Id)
 	{	
