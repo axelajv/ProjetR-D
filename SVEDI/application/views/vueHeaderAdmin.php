@@ -26,7 +26,7 @@
 	</div>
 	
 	<div id="Date">
-		 <a id="gaucheDate"  href=""><img alt="" src="../../assets/images/DateGauche.png"></a>
+		 <a id="gaucheDate"  href="../ControleurAdminHome/AnneeMoins?id=<?php echo $Date;?>"><img alt="" src="../../assets/images/DateGauche.png"></a>
 		
 		 <label id="centreDate" value="<?php echo $Date;?>"><?php echo $Date;?></label>
 		 

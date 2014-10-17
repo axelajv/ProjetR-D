@@ -5,22 +5,15 @@ class controleurAdminHome extends CI_Controller
 
 	public function loadView()
 	{
-		$dataHead['Key'] = $this->input->get('search');
-		$dataHead['Date'] = $this->getDate();
-		$data['Id_user']=$this->session->userdata('Id_user');
-		$data['Users']= $this->getListUser();
-		$data['Filieres']=$this->getListFiliere();
-		$data['Roles'] = $this->getListRoles();
-		$data['Types'] = $this->getListTypes();
-		$data['IsStatut'] = false;
-
-		$this->load->view('vueHeaderAdmin',$dataHead);
-		$this->load->view('vueAdminHome',$data);
+		$Date=date("Y");
+		
+		$this->prepareViewHeader($Date);
+		$this->prepareViewBody($Date);
+		
 		$this->load->view('vueFooter');
 		
 	}
-
-
+	
 	public function index()
 	{	
 		
@@ -57,30 +50,61 @@ class controleurAdminHome extends CI_Controller
 	}
 	
 
-	public function AnneePlus(){
-		
-		$DateActuelle= $this->input->get('id');
-	
-		$dataHead['Key'] = $this->input->get('search');
-		$dataHead['Date'] = $DateActuelle + 1 ;
-		$this->load->view('vueHeaderAdmin',$dataHead);
-		
+	public function AnneePlus()
+	{
+		$Date= $this->input->get('id');
+        $Date = $Date+1;
+                
+    	$this->prepareViewHeader($Date);    
+    	$this->prepareViewBody($Date);
+    
+        $this->load->view('vueFooter');	
 	}
-	
-	public function getDate(){
-		
-		return  date("Y");
-	}
+    
+    public function AnneeMoins()
+    {    
+        $Date= $this->input->get('id');
+        $Date = $Date-1;
+        
+        echo $Date;
+        
+    	$this->prepareViewHeader($Date);    
+    	$this->prepareViewBody($Date);
+    
+        $this->load->view('vueFooter');
+    }
 
-	public function getListUser(){
+	public function prepareViewHeader($Date)
+	{
+		$dataHead['Key'] = $this->input->get('search');
+		$dataHead['Date'] = $Date;
+		
+		$this->load->view('vueHeaderAdmin',$dataHead);	
+	}
+	
+	public function prepareViewBody($Date)
+	{	
+		$data['Id_user']=$this->session->userdata('Id_user');
+		$date['Date']=$Date;
+		$data['Users']= $this->getListUser($Date);
+		$data['Filieres']=$this->getListFiliere($Date);
+		$data['Roles'] = $this->getListRoles();
+		$data['Types'] = $this->getListTypes();
+		$data['IsStatut'] = false;	
+		
+		$this->load->view('vueAdminHome',$data);
+	}
+	
+	public function getListUser($Date){
+	
 		$this->load->model('ModeleAdminHome');
-		$Info=$this->ModeleAdminHome->getListUser();
+		$Info=$this->ModeleAdminHome->getListUser($Date);
 		return $Info;
 	}
 
-	public function getListFiliere(){
+	public function getListFiliere($Date){
 		$this->load->model('ModeleAdminHome');
-		$Info=$this->ModeleAdminHome->getListFiliere();
+		$Info=$this->ModeleAdminHome->getListFiliere($Date);
 		return $Info;
 	}
 

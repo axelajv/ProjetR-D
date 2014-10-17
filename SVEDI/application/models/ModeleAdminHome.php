@@ -18,7 +18,7 @@ class ModeleAdminHome extends CI_Model {
 //---------------------------------------------------------//
 //------------------- Get users ---------------------------//
 //---------------------------------------------------------//
-	public function getListUser()
+	public function getListUser($DateUtilisateur)
 	{
 	   $data = array();
 
@@ -35,6 +35,7 @@ class ModeleAdminHome extends CI_Model {
 	   					   u.role as U_Role,
 	   					   u.type as U_Type
 	   				FROM  utilisateur u
+	   				Where DateUtilisateur=$DateUtilisateur
 	   				ORDER BY U_Nom";
 			 
 		$query = $this->db->query($sql);	
@@ -64,19 +65,22 @@ class ModeleAdminHome extends CI_Model {
 //---------------------------------------------------------//
 //------------------- Get filiere ---------------------------//
 //---------------------------------------------------------//
-	public function getListFiliere()
+	public function getListFiliere($DateFiliere)
 	{
-	   $data = array();
+		//echo "Salut";
+        
+        $data = array();
 
-	   $i=0;
+	   	$i=0;
 
-	   $sql =	   "SELECT f.ID as F_ID,
+	   	$sql =	   "SELECT f.ID as F_ID,
 	   					   f.Nom as F_Nom,
 	   					   (SELECT count(*) from matiere where ID_Filiere = F_ID) as F_Nbm,
 	   					   (SELECT count(distinct(ID_Utilisateur)) from matiere m inner join inscription i on i.ID_Matiere = m.ID where m.ID_Filiere = F_ID) as F_Nbi
 
-	   				FROM filiere f 
-	   				ORDER BY F_Nom";
+	   				FROM filiere f
+	   				Where DateFiliere=$DateFiliere
+	   				Order By F_Nom;";
 			 
 		$query = $this->db->query($sql);	
 

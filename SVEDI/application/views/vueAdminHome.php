@@ -6,7 +6,12 @@
 		<table id="layout">
 			<tr  class="noBg">
 				<td>
-					<h6 class="center"><a id="newUser" href="">Ajouter un utilisateur <img id="addUserImg" src="../../assets/images/addUser.png" alt="add" /></a></h6>
+					<?php
+						if($Date>=date("Y"))
+						{
+							echo '<h6 class="center"><a id="newUser" href="">Ajouter un utilisateur <img id="addUserImg" src="../../assets/images/addUser.png" alt="add" /></a></h6>';
+						}
+					?>
 					<br/>
 					<h5>Liste des comptes utilisateurs</h5>
 					<table>
@@ -53,7 +58,12 @@
 					<p  class="log" id="ULog"><?php echo @$Log;?></p>
 				</td>
 				<td>
-					<h6 class="center"><a href="../ControleurAdminModifierFiliere/">Ajouter une fili&egrave;re <img id="addFiliereImg" src="../../assets/images/addFiliere.png" alt="add" /></a></h6>
+				<?php
+					
+					if($Date>=date("Y"))
+						echo '<h6 class="center"><a href="../ControleurAdminModifierFiliere/">Ajouter une fili&egrave;re <img id="addFiliereImg" src="../../assets/images/addFiliere.png" alt="add" /></a></h6>';
+				
+				?>
 					<br/>
 					<h5>Liste des fili&egrave;res</h5>
 					<table>
