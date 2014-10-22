@@ -5,9 +5,9 @@ class controleurAdminHome extends CI_Controller
 
 	public function loadView()
 	{
-		$Date=date("Y");
+		$Date=$this->session->userdata('Date');
 		
-		$this->prepareViewHeader($Date);
+		//$this->prepareViewHeader($Date);
 		$this->prepareViewBody($Date);
 		
 		$this->load->view('vueFooter');
@@ -28,10 +28,13 @@ class controleurAdminHome extends CI_Controller
 	}
 
 	public function log(){
+	
+		$Date=$this->session->userdata('Date');
+		
 		$dataHead['Key'] = $this->input->get('search');
 		$data['Id_user']=$this->session->userdata('Id_user');
-		$data['Users']= $this->getListUser();
-		$data['Filieres']=$this->getListFiliere();
+		$data['Users']= $this->getListUser($Date);
+		$data['Filieres']=$this->getListFiliere($Date);
 		$data['Roles'] = $this->getListRoles();
 		$data['Types'] = $this->getListTypes();
 				$data['IsStatut'] = false;
@@ -44,18 +47,20 @@ class controleurAdminHome extends CI_Controller
 			$data['Log'] = "Compte utilisateur crée";
 		}
 
-		$this->load->view('vueHeaderAdmin',$dataHead);
+		//$this->load->view('vueHeaderAdmin',$dataHead);
 		$this->load->view('vueAdminHome',$data);
 		$this->load->view('vueFooter');
 	}
 	
 
 	public function AnneePlus()
-	{
-		$Date= $this->input->get('id');
+	{	
+		$Date= $this->session->userdata('Date');
         $Date = $Date+1;
-                
-    	$this->prepareViewHeader($Date);    
+        $this->session->set_userdata("Date", $Date);
+        
+    	$this->prepareViewHeader($Date); 
+    	   
     	$this->prepareViewBody($Date);
     
         $this->load->view('vueFooter');	
@@ -63,15 +68,15 @@ class controleurAdminHome extends CI_Controller
     
     public function AnneeMoins()
     {    
-        $Date= $this->input->get('id');
+        $Date= $this->session->userdata('Date');;
         $Date = $Date-1;
+        $this->session->set_userdata("Date", $Date);
         
-        echo $Date;
-        
-    	$this->prepareViewHeader($Date);    
+    	$this->prepareViewHeader($Date); 
+    	   
     	$this->prepareViewBody($Date);
     
-        $this->load->view('vueFooter');
+        $this->load->view('vueFooter');	
     }
 
 	public function prepareViewHeader($Date)

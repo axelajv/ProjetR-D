@@ -26,11 +26,11 @@
 	</div>
 	
 	<div id="Date">
-		 <a id="gaucheDate"  href="../ControleurAdminHome/AnneeMoins?id=<?php echo $Date;?>"><img alt="" src="../../assets/images/DateGauche.png"></a>
+		 <a id="gaucheDate"  href="../ControleurAdminHome/AnneeMoins"><img alt="" src="../../assets/images/DateGauche.png"></a>
 		
 		 <label id="centreDate" value="<?php echo $Date;?>"><?php echo $Date;?></label>
 		 
-		 <a id="droiteDate"  href="../ControleurAdminHome/AnneePlus?id=<?php echo $Date;?>"><img alt="" src="../../assets/images/DateDroite.png"></a>
+		 <a id="droiteDate"  href="../ControleurAdminHome/AnneePlus"><img alt="" src="../../assets/images/DateDroite.png"></a>
 	</div>
 	
 	<p id="deconnexion">

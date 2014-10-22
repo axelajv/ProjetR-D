@@ -177,7 +177,9 @@ public function UtilisateurModification($ID,$Prenom,$Nom,$Mail,$Sexe,$Tel,$Login
 
 public function UtilisateurAdd($Prenom,$Nom,$Mail,$Sexe,$Tel,$Login,$Mdp,$Role,$Type){
 
-	$sql = "insert into utilisateur values(null,'".$Nom."','".$Prenom."','".$Sexe."','".$Login."','".$Mdp."','".$Mail."','".$Tel."',".$Role.",'".$Type."')";
+	$Date=$this->session->userdata('Date');
+	
+	$sql = "insert into utilisateur values(null,".$Date.",'".$Nom."','".$Prenom."','".$Sexe."','".$Login."','".$Mdp."','".$Mail."','".$Tel."',".$Role.",'".$Type."')";
 	$qry = $this->db->query($sql);
 
 	}

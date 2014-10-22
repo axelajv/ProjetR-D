@@ -4,14 +4,16 @@ class ControleurHome extends CI_Controller
 
 	public function index()
 	{
-		$this->accueil();
+		$Date=$this->session->userdata('Date');
+		$this->accueil($Date);
 	}
 
-	public function accueil()
+	public function accueil($Date)
 	{
 		$data = array();
 		
-	
+		$dataHead['Date'] =$Date; 
+		
 		$Id=$this->session->userdata('Id_user');
 		
 		$data['Nom']=$this->session->userdata('Nom');
@@ -19,20 +21,40 @@ class ControleurHome extends CI_Controller
 		$this->load->model('ModeleHome');
 		$data['Prefix']=$this->ModeleHome->GetPrefix($Id);
 		
-		$this->load->view('vueHeader');
+		$this->load->view('vueHeader',$dataHead);
 		
 		$data['Notification']=$this->RemplirInfoNotification($Id);
 		$this->load->view('vueNav',$data);
 		
 		$data['actual']=$this->GetActualHours($Id);
 		$data['todo']=$this->session->userdata('nbHeures');
-		$data['Inscription']=$this->RemplirInfoInscription($Id);
-		$data['Conflit']=$this->RemplirConflit($Id);
+		$data['Inscription']=$this->RemplirInfoInscription($Id ,$Date);
+		$data['Conflit']=$this->RemplirConflit($Id,$Date);
 		$this->load->view('vueHomeContent',$data);
 		
 		$this->load->view('vueFooter');
 	
 	}
+	
+	public function AnneeMoins(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle - 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->accueil($Date);
+		
+	}
+	
+	
+	public function AnneePlus(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle + 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->accueil($Date);
+	}
+	
+
 	
 	public function RemplirInfoNotification($Id)
 	{	
@@ -44,15 +66,25 @@ class ControleurHome extends CI_Controller
 		return ($Info);
 	}
 	
-	public function RemplirInfoInscription($Id)
+	public function RemplirInfoInscription($Id ,$Date)
 	{	
 	//	$Id=$this->session->userdata('Id_user');
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Inscription($Id);
+		$Info=$this->ModeleHome->Get_Inscription($Id,$Date);
 		return ($Info);
 	
 	}
 
+	
+	public function RemplirConflit($Id ,$Date)
+	{	
+			
+		$this->load->model('ModeleHome');
+		$Info=$this->ModeleHome->Get_Conflit($Id,$Date);
+		return ($Info);
+	}
+	
+	
 	public function GetActualHours($Id)
 	{	
 	//	$Id=$this->session->userdata('Id_user');
@@ -61,26 +93,15 @@ class ControleurHome extends CI_Controller
 		return ($Info);
 	
 	}
-	
-	public function RemplirConflit($Id)
-	{	
-			
-		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Conflit($Id);
-		return ($Info);
-	}
+
 	
 	public function Desinscription()
 	{	
 	
-		
-		
 		$this->load->model('ModeleHome');
 		$Info=$this->ModeleHome->SuppInscription($this->input->get('id'));
 		
 		echo "Désinscription effectuée";
-
-	
 
 	}
 

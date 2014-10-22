@@ -33,7 +33,8 @@ class ModeleConnexion extends CI_Model {
                    'logged_in' => TRUE,
                    'Sexe'  => $r[0]->Sexe,
                    'Role' => intval($r[0]->Role),
-                   'nbHeures' => intval($r[0]->nbHeures)
+                   'nbHeures' => intval($r[0]->nbHeures),
+                   'Date' => date("Y")
                );
 
           $this->session->set_userdata($sessiondata);

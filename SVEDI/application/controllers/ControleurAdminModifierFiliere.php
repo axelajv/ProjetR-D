@@ -3,10 +3,11 @@ class ControleurAdminModifierFiliere extends CI_Controller
 {
 	public function index()
 	{
-
+		$Date=$this->session->userdata('Date');
+		
 		$this->load->model('ModeleConnexion');
 	    if($this->ModeleConnexion->isLoggedIn()){
-	    	$this->accueil();
+	    	$this->accueil($Date);
 		}else{
 			$this->load->view('VueConnexion/vueHeader');
   			$this->load->view('VueConnexion/vueConnexionInactive');
@@ -14,19 +15,58 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		}
 	}
 
-	public function accueil()
+	public function accueil($Date)
 	{
 		$data = array();
 		$this->load->model('ModeleAdminModifierFiliere');
 
+		$id = $this->input->get('id');
 		
-		$id=$this->input->get('id');
-
-		$data['Date'] =$this->getDate();
+		$data = $this->prepareViewAdminModifierFiliere($id);
 		
-		$this->load->view('vueHeaderAdmin',$data);
+		$data['Date'] =$Date;
+		
+		$this->load->view('vueAdminModifierFiliere',$data);
+		$this->load->view('vueFooter');
+	
+	}
+	
+	public function AnneePlus()
+	{	
+		$Date= $this->session->userdata('Date');
+        $Date = $Date+1;
+        $this->session->set_userdata("Date", $Date);
+        
+        $id = $this->input->get('id');
+        
+        $data = $this->prepareViewAdminModifierFiliere($id);
+        
+        
+    	$this->load->view('vueAdminModifierFiliere',$data);
+		$this->load->view('vueFooter');
+		
+			
+	}
+    
+    public function AnneeMoins()
+    {    
+        $Date= $this->session->userdata('Date');
+        $Date = $Date-1;
+        $this->session->set_userdata("Date", $Date);
+        
+        $id = $this->input->get('id');
+        
+        $data = $this->prepareViewAdminModifierFiliere($id);
+		
+		$this->load->view('vueAdminModifierFiliere',$data);
+		$this->load->view('vueFooter');
 
-		if($this->input->get('id')){
+    }
+    
+    public function prepareViewAdminModifierFiliere($id)
+    {
+	
+    	 if($this->input->get('id')){
 			if($id == "new"){
 				$data['FID'] = $this->ModeleAdminModifierFiliere->GetNewFiliere();
 				$id = $data['FID'];
@@ -38,21 +78,16 @@ class ControleurAdminModifierFiliere extends CI_Controller
 				$data['Matieres'] = $this->getListM($id);
 				$data['SelectResp'] = $this->getListRselect($this->GetFiliereResp($id));
 				$data['FiliereNom']=$this->ModeleAdminModifierFiliere->GetFiliereNom($id);
-			}
-			
-
+			}		
 		}else{
 			$data['SelectResp'] = $this->getListR();
 			$data['FiliereNom']=false;
 
 		}
-
 		
-		$this->load->view('vueAdminModifierFiliere',$data);
-		$this->load->view('vueFooter');
-	
-	}
-	
+		return $data;
+    
+    }
 
 
 	public function log()
@@ -93,19 +128,10 @@ class ControleurAdminModifierFiliere extends CI_Controller
 			$data['FiliereNom']=false;
 
 		}
-
 		
 		$this->load->view('vueAdminModifierFiliere',$data);
 		$this->load->view('vueFooter');
 	
-	}
-
-
-	
-	
-	public function getDate(){
-		
-		return  date("Y");
 	}
 
 	public function RemplirInfoNotification($Id)
@@ -141,9 +167,12 @@ class ControleurAdminModifierFiliere extends CI_Controller
 	}
 
 	public function getListR(){
+	
+		$Date= $this->session->userdata('Date');
+		
 		$this->load->model('ModeleRespModifierFiliere');
 
-		$ListUser = $this->ModeleRespModifierFiliere->GetListResp();	
+		$ListUser = $this->ModeleRespModifierFiliere->GetListResp($Date);	
 
 		$select ='<select id="selectResp">';
 		$select = $select .'<option  disabled selected></option>';
@@ -157,8 +186,10 @@ class ControleurAdminModifierFiliere extends CI_Controller
 
 	public function getListRselect($id){
 		$this->load->model('ModeleRespModifierFiliere');
-
-		$ListUser = $this->ModeleRespModifierFiliere->GetListResp();	
+		
+		$Date= $this->session->userdata('Date');
+		
+		$ListUser = $this->ModeleRespModifierFiliere->GetListResp($Date);	
 
 		$select ='<select id="selectResp">';
 
@@ -197,7 +228,7 @@ class ControleurAdminModifierFiliere extends CI_Controller
 
 	public function creerF(){
 		$this->load->model('ModeleAdminModifierFiliere');
-		$Info=$this->ModeleAdminModifierFiliere->creerF($this->input->get('nom'),$this->input->get('rid'));
+		$Info=$this->ModeleAdminModifierFiliere->creerF($this->input->get('nom'),$this->input->get('rid'),$this->session->userdata('Date'));
 	} 
 
 

@@ -26,8 +26,8 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 	}
 
-	public function getListResp(){
-		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(2) order by Nom";
+	public function getListResp($Date){
+		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where DateUtilisateur=$Date AND role in(2) order by Nom";
 		$query = $this->db->query($sql);	
 	
 		$lignes = $query->result_array();
@@ -113,8 +113,8 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 	}
 
-	public function creerF($nom,$id){
-		$sql = "INSERT into filiere values(null,'".$nom."',".$id.")";
+	public function creerF($nom,$id,$date){
+		$sql = "INSERT into filiere values(null,".$date.",'".$nom."',".$id.")";
 		$query = $this->db->query($sql);	
 
 	}
