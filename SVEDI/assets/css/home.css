@@ -213,7 +213,38 @@ h6{
 
 /*---------- HEADER ---------- */
 
+#DateHeader {
+	
 
+	
+	
+		position: absolute;
+		top:10px;
+		left:calc(50% - 70px);
+	
+}
+
+#DateHeader  a#gaucheDate  {
+
+	
+	border: none; 
+}
+
+#DateHeader  label#centreDate  {
+	
+
+	width: 30%;
+	font-weight:bold;
+	font-size: 18px;
+	font-family: candara, calibri, thaoma, arial;
+	color:#005396;
+}
+
+#DateHeader  a#droiteDate  {
+
+	border: none; 
+	
+}
 
 #Date {
 
@@ -562,6 +593,9 @@ table#layoutProfil{
 /*---------------- ADMIN ------------------*/
 
 
+span#FNomE {
+	display:none;
+}
 
 
 #admin{
