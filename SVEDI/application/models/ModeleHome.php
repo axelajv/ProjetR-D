@@ -59,7 +59,7 @@ class ModeleHome extends CI_Model
 //---------------------------------------------------------//
 
 
-	public function Get_Conflit($ID)
+	public function Get_Conflit($ID,$Date)
 	{
 	   $data = array();
 	   $i=0;
@@ -67,13 +67,14 @@ class ModeleHome extends CI_Model
 	   $sql =	   "SELECT M.Nom AS 'NomM', F.Nom AS 'NomF', NbHeuresTD, NbHeuresTP, NbHeuresCours , Conflit, semestre , I.ID_Inscription as 'ID_Inscription'
 					FROM Matiere AS M, Filiere AS F, Utilisateur AS U, Inscription AS I 
 					WHERE U.ID = ?
+					AND YEAR(I.DateInscription)=?
 					AND I.ID_Utilisateur = U.ID
 					AND I.ID_Matiere = M.ID
 					AND M.ID_Filiere = F.ID
 					AND Conflit=true " ;
 			 
 	
-		$param = array($ID);	 
+		$param = array($ID,$Date);	 
 		$query = $this->db->query($sql,$param);	
 		
 		foreach($query->result_array()  as $ligne)
@@ -96,7 +97,7 @@ class ModeleHome extends CI_Model
 //---------------------------------------------------------//
 	
 	
-	public function Get_Notification($ID)
+	public function Get_Notification($ID,$Date)
 	{
 	   $dataN = array();
 	   $i=0;
@@ -104,13 +105,14 @@ class ModeleHome extends CI_Model
 	   $sqlN =	   "SELECT Texte, DateNotification, Lu, TypeNotif, M.Nom AS 'NomM', F.Nom AS 'NomF', NbHeuresTD, NbHeuresTP, NbHeuresCours ,N.ID As 'Id_Notif'
 					FROM Notification AS N, Matiere AS M, Filiere AS F, Inscription AS I
 					WHERE N.ID_Utilisateur = ?
+					AND Year(N.DateNotification) = ?
 					AND I.ID_Inscription = N.ID_Inscription
 					AND I.ID_Matiere = M.ID
 					AND M.ID_Filiere = F.ID 
 					order by DateNotification ;" ;
 			 
 		
-		$param = array($ID);	 
+		$param = array($ID,$Date);	 
 		$queryN = $this->db->query($sqlN,$param);	
 		
 		foreach($queryN->result_array()  as $ligneN)
@@ -176,7 +178,7 @@ class ModeleHome extends CI_Model
 //-------------------Get Inscription-----------------------//
 //---------------------------------------------------------//
 	
-	public function Get_Inscription($ID)
+	public function Get_Inscription($ID ,$Date)
 	{
 	    $data = array();
 	    $i=0;
@@ -185,12 +187,13 @@ class ModeleHome extends CI_Model
 	   $sql =	   "SELECT M.Nom AS 'NomM', F.Nom AS 'NomF', NbHeuresTD, NbHeuresTP, NbHeuresCours , semestre , I.ID_Inscription AS 'ID_Inscription'
 					FROM Matiere AS M, Filiere AS F, Utilisateur AS U, Inscription AS I 
 					WHERE U.ID = ?
+					AND YEAR(I.DateInscription)= ?
 					AND I.ID_Utilisateur = U.ID
 					AND I.ID_Matiere = M.ID
 					AND M.ID_Filiere = F.ID
 					AND Conflit= false" ;
 			 
-		$param = array($ID);	 
+		$param = array($ID,$Date);	 
 		$query = $this->db->query($sql,$param);	
 	
 			foreach($query->result_array()  as $ligne)
@@ -228,11 +231,11 @@ class ModeleHome extends CI_Model
 
 	}
 
-	public function GetActualHours($id){
+	public function GetActualHours($id,$Date){
 
 		 $i=0;
 	   
-		$sql = "SELECT SUM((nbHeuresCours*1.5)+NbHeuresTD+(NbHeuresTP*(2/3))) as nb from inscription where ID_Utilisateur =".$id ;
+		$sql = "SELECT SUM((nbHeuresCours*1.5)+NbHeuresTD+(NbHeuresTP*(2/3))) as nb from inscription where year(DateInscription)=".$Date." AND ID_Utilisateur =".$id ;
 			 
 		$query = $this->db->query($sql);	
 	

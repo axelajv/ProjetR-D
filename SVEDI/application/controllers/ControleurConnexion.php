@@ -37,7 +37,7 @@ if($info == null){
 
 $this->load->library('email');
 
-$this->email->from('nicolasmar91@gmail.com', 'SVEDI app.');
+$this->email->from('belkmoh@gmail.com', 'SVEDI app.');
 $this->email->to($email);
 
 $this->email->subject('Récupération de mot de passe');

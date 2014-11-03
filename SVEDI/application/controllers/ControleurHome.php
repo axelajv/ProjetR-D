@@ -12,7 +12,7 @@ class ControleurHome extends CI_Controller
 	{
 		$data = array();
 		
-		$dataHead['Date'] =$Date; 
+		$data['Date'] =$Date; 
 		
 		$Id=$this->session->userdata('Id_user');
 		
@@ -21,12 +21,12 @@ class ControleurHome extends CI_Controller
 		$this->load->model('ModeleHome');
 		$data['Prefix']=$this->ModeleHome->GetPrefix($Id);
 		
-		$this->load->view('vueHeader',$dataHead);
+		//$this->load->view('vueHeader',$dataHead);
 		
-		$data['Notification']=$this->RemplirInfoNotification($Id);
+		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 		$this->load->view('vueNav',$data);
 		
-		$data['actual']=$this->GetActualHours($Id);
+		$data['actual']=$this->GetActualHours($Id ,$Date);
 		$data['todo']=$this->session->userdata('nbHeures');
 		$data['Inscription']=$this->RemplirInfoInscription($Id ,$Date);
 		$data['Conflit']=$this->RemplirConflit($Id,$Date);
@@ -56,12 +56,12 @@ class ControleurHome extends CI_Controller
 	
 
 	
-	public function RemplirInfoNotification($Id)
+	public function RemplirInfoNotification($Id,$Date)
 	{	
 
 	//	$Id=$this->session->userdata('Id_user');
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Notification($Id);
+		$Info=$this->ModeleHome->Get_Notification($Id,$Date);
 
 		return ($Info);
 	}
@@ -85,11 +85,11 @@ class ControleurHome extends CI_Controller
 	}
 	
 	
-	public function GetActualHours($Id)
+	public function GetActualHours($Id,$Date)
 	{	
 	//	$Id=$this->session->userdata('Id_user');
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->GetActualHours($Id);
+		$Info=$this->ModeleHome->GetActualHours($Id,$Date);
 		return ($Info);
 	
 	}
