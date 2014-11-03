@@ -6,7 +6,7 @@ class controleurRechercheCatalogue extends CI_Controller
 {
 
 
-	public function loadView()
+	public function loadView($Date)
 	{
 
 		if ($this->input->get('id')){
@@ -15,11 +15,12 @@ class controleurRechercheCatalogue extends CI_Controller
 			$dataHead['Key'] = "";
 		}
 
+		$data['Date'] =$Date; 
 		$Id=$this->session->userdata('Id_user');
-		$data['Notification']=$this->RemplirInfoNotification($Id);
+		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 
 
-		$this->load->view('vueHeader',$dataHead);
+		//$this->load->view('vueHeader',$dataHead);
 		$this->load->view('vueNav',$data);
 
 		
@@ -29,7 +30,7 @@ class controleurRechercheCatalogue extends CI_Controller
 			$data['Keywords'] = $this->getLabelFiliere($this->input->get('id'));
 			$this->load->view('vueRechercheCatalogueContent',$data);
 		}else{
-			$data['Resultats'] = $this->getList();
+			$data['Resultats'] = $this->getList($Date);
 
 			$this->load->view('vueRechercheCatalogueListe',$data);
 		}
@@ -39,15 +40,37 @@ class controleurRechercheCatalogue extends CI_Controller
 		
 	}
 
-	public function RemplirInfoNotification($Id)
+	
+	
+	public function AnneeMoins(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle - 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->loadView($Date);
+		
+	}
+	
+	
+	public function AnneePlus(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle + 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->loadView($Date);
+	}
+	
+	
+	
+	public function RemplirInfoNotification($Id,$Date)
 	{	
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Notification($Id);
+		$Info=$this->ModeleHome->Get_Notification($Id,$Date);
 			
 		return ($Info);
 	}
 
-public function getLabelFiliere($var){
+	public function getLabelFiliere($var){
 		$this->load->model('ModeleRechercheCatalogue');
 		$Info=$this->ModeleRechercheCatalogue->getLabelFiliere($var);
 		return $Info;
@@ -59,9 +82,9 @@ public function getLabelFiliere($var){
 		return $Info;
 	}
 
-	public function getList(){
+	public function getList($Date){
 		$this->load->model('ModeleRechercheCatalogue');
-		$Info=$this->ModeleRechercheCatalogue->getList();
+		$Info=$this->ModeleRechercheCatalogue->getList($Date);
 		return $Info;
 	}
 
@@ -71,8 +94,9 @@ public function getLabelFiliere($var){
 	{	
 		
 		$this->load->model('ModeleConnexion');
-	    if($this->ModeleConnexion->isLoggedIn()){
-			$this->loadView();
+	    if($this->ModeleConnexion->isLoggedIn()){	
+			$Date=$this->session->userdata('Date');
+			$this->loadView($Date);
 		}else{
 			$this->load->view('VueConnexion/vueHeader');
   			$this->load->view('VueConnexion/vueConnexionInactive');

@@ -27,13 +27,13 @@ class ModeleRechercheCatalogue extends CI_Model {
 
 	}
 
-	public function getList(){
+	public function getList($Date){
 	   $i=0;
 	   $data = array();
 
-	   $sql =	   "SELECT ID as F_ID, 
-	   					   nom as F_Nom
+	   $sql =	   "SELECT ID as F_ID, nom as F_Nom
 	   				FROM filiere 
+					WHERE DateFiliere=".$Date."
 	   				ORDER BY F_Nom";
 			 
 		$query = $this->db->query($sql);	
