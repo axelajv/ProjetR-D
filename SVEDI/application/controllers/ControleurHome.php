@@ -133,6 +133,8 @@ class ControleurHome extends CI_Controller
 	 {
 		$data = array();
 		
+		$Date=$this->session->userdata('Date');
+		
 	
 		$Id=$this->session->userdata('Id_user');
 		
@@ -140,10 +142,10 @@ class ControleurHome extends CI_Controller
 
 		$this->load->model('ModeleHome');
 		$data['Prefix']=$this->ModeleHome->GetPrefix($Id);
-		$data['actual']=$this->GetActualHours($Id);
+		$data['actual']=$this->GetActualHours($Id,$Date);
 		$data['todo']=$this->session->userdata('nbHeures');
-		$data['Inscription']=$this->RemplirInfoInscription($Id);
-		$data['Conflit']=$this->RemplirConflit($Id);
+		$data['Inscription']=$this->RemplirInfoInscription($Id,$Date);
+		$data['Conflit']=$this->RemplirConflit($Id,$Date);
     
 	    //Load the library
 	    $this->load->library('html2pdf');
