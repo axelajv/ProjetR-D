@@ -7,7 +7,8 @@ class ControleurProfilUtilisateur extends CI_Controller
 	
 		$this->load->model('ModeleConnexion');
 	    if($this->ModeleConnexion->isLoggedIn()){
-	    	$this->accueil();
+			$Date=$this->session->userdata('Date');
+	    	$this->accueil($Date);
 		}else{
 			$this->load->view('VueConnexion/vueHeader');
   			$this->load->view('VueConnexion/vueConnexionInactive');
@@ -15,14 +16,14 @@ class ControleurProfilUtilisateur extends CI_Controller
 		}
 	}
 
-	public function accueil()
+	public function accueil($Date)
 	{
 		$data = array();
 		
 		$Id=$this->session->userdata('Id_user');
 		$this->load->view('vueHeader');
 		
-		$data['Notification']=$this->RemplirInfoNotification($Id);
+		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 		$this->load->view('vueNav',$data);
 		
 		$data['DP']=$this->RemplirFormulaireDP($Id);
@@ -71,10 +72,10 @@ class ControleurProfilUtilisateur extends CI_Controller
 	}
 	
 	
-	public function RemplirInfoNotification($Id)
+	public function RemplirInfoNotification($Id,$Date)
 	{		
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Notification($Id);
+		$Info=$this->ModeleHome->Get_Notification($Id,$Date);
 		return ($Info);
 	}
 	
