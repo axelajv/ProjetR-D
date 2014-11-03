@@ -205,6 +205,32 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		$select = $select ."</select>";
 		return $select;
 	}
+	
+	public function getListFselect(){
+	
+		$this->load->model('ModeleRespModifierFiliere');
+		
+		$Date= $this->session->userdata('Date');
+		
+		$ListUser = $this->ModeleRespModifierFiliere->GetListFiliere($Date);	
+
+		$select ='<select id="selectResp">';
+
+		foreach ($ListUser as $u) {
+			if($u['ID'] == $id){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+
+			$select = $select.'<option '.$selected.' value="'.$u['ID'].'" > '.$u['Nom'].'</option>';
+		}
+		$select = $select ."</select>";
+		return $select;
+	
+	
+	
+	}
 
 	public function modifierM(){
 		$this->load->model('ModeleRespModifierFiliere');
