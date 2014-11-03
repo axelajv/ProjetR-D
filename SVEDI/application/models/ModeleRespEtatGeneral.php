@@ -41,7 +41,7 @@ class ModeleRespEtatGeneral extends CI_Model
 
 	}
 
-	public function GetAllInfos($id){
+	public function GetAllInfos($Nom,$Date){
 		$sql = "SELECT m.Nom as MNom,
 					   m.semestre as MSemestre,
 					   m.id as MID,
@@ -54,9 +54,11 @@ class ModeleRespEtatGeneral extends CI_Model
 					   m.maxheuresTD as HTDMAX,
 					   m.maxHeuresCours as HCMAX
 				from matiere m 
+				left outer join filiere f on f.ID = m.ID_filiere
 				left outer join inscription i on i.ID_matiere = m.id 
 				left outer join utilisateur u on i.ID_Utilisateur = u.ID 
-				where ID_filiere = ".$id."
+				where f.Nom = '".$Nom."'
+				And f.DateFiliere = ".$Date."
 				order by m.semestre, m.nom";
 
 		$query = $this->db->query($sql);	

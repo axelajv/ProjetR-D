@@ -7,14 +7,15 @@ class ControleurRespEtatGeneral extends CI_Controller
 		
 		$this->load->model('ModeleConnexion');
 	    if($this->ModeleConnexion->isLoggedIn()){
-			$this->accueil();
+			$Date=$this->session->userdata('Date');
+			$this->accueil($Date);
 		}else{
 			$this->load->view('VueConnexion/vueHeader');
   			$this->load->view('VueConnexion/vueConnexionInactive');
 			$this->load->view('VueConnexion/vueFooter');
 		}	}
 
-	public function accueil()
+	public function accueil($Date)
 	{
 		$data = array();
 		
@@ -23,15 +24,15 @@ class ControleurRespEtatGeneral extends CI_Controller
 
 		$this->load->model('ModeleRespEtatGeneral');
 		$data['FiliereNom']=$this->ModeleRespEtatGeneral->GetFiliereNom($Id);
-
+		$data['Date']=$Date;
 		$data['resp'] = "Y";
 
 		$this->load->view('vueHeader',$data);
 		
-		$data['Notification']=$this->RemplirInfoNotification($Id);
+		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 		$this->load->view('vueNav',$data);
 
-		$data['data'] = $this->GetAllInfos($this->ModeleRespEtatGeneral->GetFiliereId($Id));
+		$data['data'] = $this->GetAllInfos($this->ModeleRespEtatGeneral->GetFiliereNom($Id),$Date);
 		
 		$this->load->view('vueRespEtatGeneral',$data);
 		
@@ -39,16 +40,38 @@ class ControleurRespEtatGeneral extends CI_Controller
 	
 	}
 	
-	public function RemplirInfoNotification($Id){	
+	
+	public function AnneeMoins(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle - 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->accueil($Date);
+		
+	}
+	
+	
+	public function AnneePlus(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle + 1 ;
+		$this->session->set_userdata("Date", $Date);
+		$this->accueil($Date);
+	}
+	
+	
+	
+	
+	public function RemplirInfoNotification($Id,$Date){	
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Notification($Id);
+		$Info=$this->ModeleHome->Get_Notification($Id,$Date);
 				
 		return ($Info);
 	}
 
-	public function GetAllInfos($ID){
+	public function GetAllInfos($Nom,$Date){
 		$this->load->model('ModeleRespEtatGeneral');
-		$Info=$this->ModeleRespEtatGeneral->GetAllInfos($ID);
+		$Info=$this->ModeleRespEtatGeneral->GetAllInfos($Nom,$Date);
 
 		return ($Info);
 	}
