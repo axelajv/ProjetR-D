@@ -125,7 +125,7 @@
 			<INPUT type="radio" id="ajoutFiliereYes" name="ajoutFiliere" value="oui" onchange="test();"><label>Oui</label>
 			<INPUT type="radio" id="ajoutFiliereNo" name="ajoutFiliere" value="non" onchange="test();" checked><label>Non</label>
 			</p>			
-			<p>Nom de la filière : <input type="text" id="FNom" value="<?php echo $FiliereNom;?>"/><span id="ListeF"><?php echo $SelectResp;?></span></p>
+			<p>Nom de la filière : <input type="text" id="FNom" value="<?php echo $FiliereNom;?>" style="display:none"/><span id="ListeF"><?php echo $SelectFiliere;?></span></p>
 			<p>Responsable : <?php echo $SelectResp;?></p>
 			
 			<p><input type="submit" value="Créer" id="newF"/></p>

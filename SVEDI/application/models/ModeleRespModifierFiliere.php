@@ -84,15 +84,15 @@ class ModeleRespModifierFiliere extends CI_Model
 
 	}
 	
-	public function GetListFiliere(){
+	public function GetListFiliere($Date){
 	
-		$sql = "SELECT  FROM Filiere where ID_Utilisateur = ".$id ;
+		$sql = "SELECT ID,Nom FROM Filiere where DateFiliere=$Date";
 			 
 		$query = $this->db->query($sql);	
 	
 		$ligne = $query->result_array();
 
-		return $ligne[0]['ID'];
+		return $ligne;
 		
 	
 	
