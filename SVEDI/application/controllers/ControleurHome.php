@@ -12,8 +12,10 @@ class ControleurHome extends CI_Controller
 	{
 		$data = array();
 		
-		$data['Date'] =$Date; 
+		$data['Date']=$Date; 
 		
+		echo $Date;
+
 		$Id=$this->session->userdata('Id_user');
 		
 		$data['Nom']=$this->session->userdata('Nom');
@@ -39,7 +41,7 @@ class ControleurHome extends CI_Controller
 	public function AnneeMoins(){
 		
 		$DateActuelle=$this->session->userdata('Date');
-		$Date= $DateActuelle - 1 ;
+		$Date= $DateActuelle-1;
 		$this->session->set_userdata("Date", $Date);
 		$this->accueil($Date);
 		
@@ -48,9 +50,11 @@ class ControleurHome extends CI_Controller
 	
 	public function AnneePlus(){
 		
-		$DateActuelle=$this->session->userdata('Date');
-		$Date= $DateActuelle + 1 ;
-		$this->session->set_userdata("Date", $Date);
+		$Date=$this->session->userdata('Date');
+        $Date=$Date+1;
+        //echo $Date;
+        $this->session->set_userdata("Date", $Date);
+
 		$this->accueil($Date);
 	}
 	
