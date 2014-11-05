@@ -28,7 +28,7 @@ class controleurRechercheCatalogue extends CI_Controller
 
 			$data['Resultats'] = $this->getData($this->input->get('id'));
 			$data['Keywords'] = $this->getLabelFiliere($this->input->get('id'));
-			$this->load->view('vueHeader',$dataHead);
+			
 			$this->load->view('vueRechercheCatalogueContent',$data);
 		}else{
 			$data['Resultats'] = $this->getList($Date);

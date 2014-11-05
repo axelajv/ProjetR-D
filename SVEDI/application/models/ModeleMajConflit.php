@@ -63,7 +63,7 @@ class ModeleMajConflit extends CI_Model {
 
 
 			$this->load->library('email');
-			$this->email->from('nicolasmar91@gmail.com', 'SVEDI app.');
+			$this->email->from('belkmoh@gmail.com', 'SVEDI app.');
 			$this->email->to($mail[0]['mail']);
 			$this->email->subject('Conflit detecter');
 

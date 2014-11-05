@@ -17,9 +17,8 @@ class ModeleInscription extends CI_Model {
 
 	private function dejaInscrit($ID_Matiere) {
 		$idUtilisateur=$this->session->userdata('Id_user');
-
-
-	   $sql =	   "SELECT 'X'
+		
+		$sql =	   "SELECT 'X'
 	   				FROM inscription i 
 	   				where ID_Utilisateur =".$idUtilisateur." and ID_Matiere = ".$ID_Matiere;
 			 
@@ -32,14 +31,16 @@ class ModeleInscription extends CI_Model {
 		return false;
 	}
 
-	public function inscription($ID_Matiere,$HC,$HTD,$HTP){
+	public function inscription($ID_Matiere,$HC,$HTD,$HTP,$Date){
 		$idUtilisateur=$this->session->userdata('Id_user');
 
 		if($this->dejaInscrit($ID_Matiere)){
+		
 			echo "Vous etes déjà inscrit à cette matière. Inscrition annulée.";
+			
 		}else{
 
-			$sql =	   "INSERT INTO inscription values(null,NOW(),".$HC.",".$HTD.",".$HTP.",".$idUtilisateur.",".$ID_Matiere.",'false')";
+			$sql =	   "INSERT INTO inscription values(null,".$Date.",".$HC.",".$HTD.",".$HTP.",".$idUtilisateur.",".$ID_Matiere.",'false')";
 
 			$query = $this->db->query($sql);	
 
@@ -48,6 +49,7 @@ class ModeleInscription extends CI_Model {
 			$query = $this->db->query($sql);	
 
 			echo "Inscription effectuée avec succés.";
+			
 		}
 
 	}

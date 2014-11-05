@@ -84,11 +84,18 @@ class ControleurRespEtatGeneral extends CI_Controller
 
 	$this->load->model('ModeleRespEtatGeneral');
 	
+	$Date=$this->session->userdata('Date');
+	$Nom=$this->ModeleRespEtatGeneral->GetFiliereNom($Id);
+	
+	
+	
 	$IDFiliere = $this->ModeleRespEtatGeneral->GetFiliereID($Id);
 	
-	 $q = " SELECT DISTINCT m.nom As NomMatiere, u.nom as NomUtilisateur,u.prenom as PrenomUtilisateur, i.NbHeuresCours,i.NbHeuresTD, i.NbHeuresTP, f.Nom as NomFiliere,u.Type as Type, m.Semestre as Semestre		FROM filiere as f, matiere as m, inscription as i, utilisateur as u,typeutilisateur as t
-				WHERE f.ID =".$IDFiliere." AND f.ID = m.ID_filiere AND m.ID = i.ID_matiere AND u.ID = i.ID_utilisateur
-				AND u.ID = i.ID_utilisateur AND m.ID = i.ID_matiere";
+	 $q = " SELECT DISTINCT m.nom As NomMatiere, u.nom as NomUtilisateur,u.prenom as PrenomUtilisateur, i.NbHeuresCours,i.NbHeuresTD, i.NbHeuresTP, f.Nom as NomFiliere,u.Type as Type, m.Semestre as Semestre	
+			FROM filiere as f, matiere as m, inscription as i, utilisateur as u,typeutilisateur as t
+			WHERE f.Nom ='".$Nom."' AND f.DateFiliere =".$Date."  AND f.ID = m.ID_filiere AND m.ID = i.ID_matiere AND u.ID = i.ID_utilisateur
+			AND u.ID = i.ID_utilisateur AND m.ID = i.ID_matiere";
+
 			
 
 	$q = $this->db->query($q);
@@ -117,11 +124,7 @@ class ControleurRespEtatGeneral extends CI_Controller
 		$this->excel->getActiveSheet()->setCellValue("L2", "2nd semestre");
 		
 		$r = 3;
-/*$this->excel->getActiveSheet()->setCellValue('A'.$row, 'First Name')
-                              ->setCellValue('B'.$row, 'Last Name')
-                              ->setCellValue('C'.$row, 'Age')
-                              ->setCellValue('D'.$row, 'Date of birth')
-                              ->setCellValue('E'.$row, 'Salary');*/
+
 $sumS1 = 0;
 $sumS2 = 0;
 

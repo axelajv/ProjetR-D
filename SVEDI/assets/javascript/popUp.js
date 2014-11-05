@@ -77,31 +77,53 @@ $("#content .resultSearch table tr td img").mouseout(function(){
 });
 
 //futur code pour le click popUp inscription matière
-$("#content .resultSearch table tr td img").click(function(){
-	showPopUp();
-	var txt = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[17].innerText;
+var Dateclick = document.getElementById("centreDate");
+var MaDateclick = Dateclick.innerText || Dateclick.textContent;
+
+var d = new Date();
+var DateActuelle = d.getFullYear();
 
 
 
-	$("#popUpTitleMatiere").text(txt);
+if (MaDateclick >= DateActuelle){
 
-	var id = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].id;
+	$("#content .resultSearch table tr td img").click(function(){
+		showPopUp();
+		
+		var id = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[3].id;
+		
+		var titre = document.getElementById("NomMatiere"+id);
+		var monTitre = titre.innerText || titre.textContent;
+		
+		var txt = "la matiere " + monTitre;
+		
 
-$("#TP_dispo").text($("#"+id+"-HTP").val());
-$("#TD_dispo").text($("#"+id+"-HTD").val());
-$("#cours_dispo").text($("#"+id+"-HC").val());
-$("#TP_max").text($("#"+id+"-HTPMAX").val());
-$("#TD_max").text($("#"+id+"-HTDMAX").val());
-$("#cours_max").text($("#"+id+"-HCMAX").val());
-$("#ID_Matiere").val(id);
+		//var txt = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[17].innerText;
 
-});
+		$("#popUpTitleMatiere").text(txt);
+
+
+	$("#TP_dispo").text($("#"+id+"-HTP").val());
+	$("#TD_dispo").text($("#"+id+"-HTD").val());
+	$("#cours_dispo").text($("#"+id+"-HC").val());
+	$("#TP_max").text($("#"+id+"-HTPMAX").val());
+	$("#TD_max").text($("#"+id+"-HTDMAX").val());
+	$("#cours_max").text($("#"+id+"-HCMAX").val());
+	$("#ID_Matiere").val(id);
+
+
+
+	});
+
+
+} else {
+
+$('.ImgInscription').css('display', 'none');
+	
+}
 
 //futur code pour le click validation inscription
 function validationInscription(){
-
-
-
 
 	var xhr = null;
 	
@@ -127,7 +149,11 @@ xhr.onreadystatechange = function() {
                 showMsg(xhr.responseText);
         }
 };
-xhr.open("GET", $("#baseUrl").val()+"controleurInscription/inscription/"+$("#ID_Matiere").val()+"/"+$("#inputHC").val()+"/"+$("#inputHTD").val()+"/"+$("#inputHTP").val()+"/", true);
+
+var DateI = document.getElementById("centreDate");
+var MaDateI = DateI.innerText || DateI.textContent;
+
+xhr.open("GET", $("#baseUrl").val()+"controleurInscription/inscription/"+$("#ID_Matiere").val()+"/"+$("#inputHC").val()+"/"+$("#inputHTD").val()+"/"+$("#inputHTP").val()+"/"+MaDateI+"/", true);
 xhr.send(null);
 
 
@@ -141,13 +167,17 @@ $("#retourBtn").click(function(){
 //add listener sur le click de fermeture
 $(".closePopUp").click(closePopUp);
 
+//Provisoir pck hover probleme 
+/*
 $("#modal").click(function(){
 	if (!$("#popUp").is(':hover')) {
-	closePopUp();
+		closePopUp();
 	}
 });
+*/
 
 $("#validerPopUp").click(validationInscription);
 
 closePopUp();
+
 });

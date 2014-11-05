@@ -77,7 +77,7 @@ if($role > 1){
 
 <div id="content">
 	<input type="hidden" id="baseUrl" value="<?php echo base_url();?>"/>
-	 <h4>Liste des fili&egrave;res</h4>
+	 <h4>Liste des fili&egrave;res  <?php echo $Date ?> </h4>
 	 <div>
 	<?php 
 		if (sizeof($Resultats) > 0){

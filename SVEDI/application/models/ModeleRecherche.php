@@ -18,7 +18,7 @@ class ModeleRecherche extends CI_Model {
 //---------------------------------------------------------//
 //-------------------Get results---------------------------//
 //---------------------------------------------------------//
-	public function getResultSearch($keyword)
+	public function getResultSearch($keyword,$Date)
 	{
 	   $data = array();
 
@@ -39,6 +39,7 @@ if ($keyword == ''){ return $data;}
 	   					   u.sexe as U_Sexe
 	   				FROM matiere m inner join filiere f on m.ID_Filiere = f.ID inner join utilisateur u on f.ID_Utilisateur = u.ID
 	   				WHERE m.nom like('%".$keyword."%')
+					And f.DateFiliere=".$Date."
 	   				ORDER BY F_Nom";
 			 
 		$query = $this->db->query($sql);	

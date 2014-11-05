@@ -83,20 +83,6 @@ class ModeleRespModifierFiliere extends CI_Model
 		return $ligne[0]['ID'];
 
 	}
-	
-	public function GetListFiliere(){
-	
-		$sql = "SELECT  FROM Filiere where ID_Utilisateur = ".$id ;
-			 
-		$query = $this->db->query($sql);	
-	
-		$ligne = $query->result_array();
-
-		return $ligne[0]['ID'];
-		
-	
-	
-	}
 
 	public function GetFiliereResp($id){
 		$sql = "SELECT ID_Utilisateur FROM Filiere where ID = ".$id ;
