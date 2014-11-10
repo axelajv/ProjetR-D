@@ -65,7 +65,7 @@ class ControleurAdminModifierFiliere extends CI_Controller
     
     public function prepareViewAdminModifierFiliere($id)
     {
-	
+
     	 if($this->input->get('id')){
 			if($id == "new"){
 				$data['FID'] = $this->ModeleAdminModifierFiliere->GetNewFiliere();
@@ -73,15 +73,18 @@ class ControleurAdminModifierFiliere extends CI_Controller
 				$data['Matieres'] = $this->getListM($id);
 				$data['SelectResp'] = $this->getListRselect($this->GetFiliereResp($id));
 				$data['FiliereNom']=$this->ModeleAdminModifierFiliere->GetFiliereNom($id);
+				$data['SelectFiliere']=$this->getListFselect($id);
 			}else{
 				$data['FID']=$id;
 				$data['Matieres'] = $this->getListM($id);
 				$data['SelectResp'] = $this->getListRselect($this->GetFiliereResp($id));
 				$data['FiliereNom']=$this->ModeleAdminModifierFiliere->GetFiliereNom($id);
+				$data['SelectFiliere']=$this->getListFselect($id);		
 			}		
 		}else{
 			$data['SelectResp'] = $this->getListR();
 			$data['FiliereNom']=false;
+			$data['SelectFiliere']=$this->getListFselect($id);
 
 		}
 		
@@ -115,16 +118,20 @@ class ControleurAdminModifierFiliere extends CI_Controller
 				$data['Matieres'] = $this->getListM($id);
 				$data['SelectResp'] = $this->getListRselect($this->GetFiliereResp($id));
 				$data['FiliereNom']=$this->ModeleAdminModifierFiliere->GetFiliereNom($id);
+				$data['SelectFiliere']=$this->getListFselect($id);
+
 			}else{
 				$data['FID']=$id;
-				$data['Matieres'] = $this->getListM($id);
-				$data['SelectResp'] = $this->getListRselect($this->GetFiliereResp($id));
+				$data['Matieres']=$this->getListM($id);
+				$data['SelectResp']=$this->getListRselect($this->GetFiliereResp($id));
 				$data['FiliereNom']=$this->ModeleAdminModifierFiliere->GetFiliereNom($id);
+				$data['SelectFiliere']=$this->getListFselect($id);
 			}
 			
 
 		}else{
 			$data['SelectResp'] = $this->getListR();
+			$data['SelectFiliere']=$this->getListFselect($id);
 			$data['FiliereNom']=false;
 
 		}
@@ -160,11 +167,13 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		return ($Info);
 	}
 
+
 	public function getIdF($id){
 		$this->load->model('ModeleRespModifierFiliere');
 		$Info=$this->ModeleRespModifierFiliere->GetFiliereID($id);		
 		return ($Info);
 	}
+
 
 	public function getListR(){
 	
@@ -205,7 +214,39 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		$select = $select ."</select>";
 		return $select;
 	}
+	
+	public function getListFselect($id){
+	
+		$this->load->model('ModeleRespModifierFiliere');
+		
+		$Date= $this->session->userdata('Date');
 
+		$Date=$Date-1;
+		
+		$ListFiliere = $this->ModeleRespModifierFiliere->GetListFiliere($Date);	
+
+		$select ='<select id="SelectFiliere">';
+
+		if (is_array($ListFiliere))
+		{
+			foreach ($ListFiliere as $u) {
+			if($u['ID'] == $id){
+				$selected = "selected";
+			}else{
+				$selected = "";
+			}
+
+			$select = $select.'<option '.$selected.' value="'.$u['ID'].'" > '.$u['Nom'].'</option>';
+		}
+		$select = $select ."</select>";
+
+		}
+		
+		return $select;
+	
+	
+	
+	}
 	public function modifierM(){
 		$this->load->model('ModeleRespModifierFiliere');
 		$this->ModeleRespModifierFiliere->MM($this->input->get('id'),$this->input->get('nom'),$this->input->get('HC'),$this->input->get('HTD'),$this->input->get('HTP'),$this->input->get('semestre'));	

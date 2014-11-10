@@ -16,7 +16,7 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 		 $i=0;
 	   
-		$sql =	   "SELECT Nom FROM Filiere where ID = ".$id ;
+		$sql="SELECT Nom FROM Filiere where ID = ".$id ;
 			 
 		$query = $this->db->query($sql);	
 	
@@ -34,7 +34,6 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 		return $lignes;
 	}
-	
 
 	public function getListMatiere($id)
 	{
