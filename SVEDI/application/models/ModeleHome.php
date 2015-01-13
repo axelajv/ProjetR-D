@@ -13,6 +13,44 @@ class ModeleHome extends CI_Model
 	
 	}
 	
+	public function AnneeMin($NomF){
+	
+		$data = array();
+    	
+	    $sql= "Select Min(DateFiliere) as DateMin
+				FROM Filiere
+				WHERE Nom ='".$NomF."';" ;
+
+		$query = $this->db->query($sql);	
+		
+		$ligne = $query->result_array(); 
+		
+		return $ligne[0]['DateMin'];
+		
+	
+	}
+	
+	public function AnneeMax($NomF){
+	
+		$data = array();
+    	
+	    $sql= "Select Max(DateFiliere) as DateMax
+				FROM Filiere
+				WHERE Nom ='".$NomF."';" ;
+
+		$query = $this->db->query($sql);	
+		
+		$ligne = $query->result_array(); 
+		
+		return $ligne[0]['DateMax'];
+	
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

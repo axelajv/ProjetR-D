@@ -16,7 +16,23 @@
 	}
 	?>
 </head>
-
+<script type="text/javascript">
+		
+ 		function test(){
+			if(document.getElementById('ajoutFiliereYes').checked){
+				var valeur = document.getElementById('ajoutFiliereYes').value;
+				document.getElementById('FNom').style.display = "inline"
+				document.getElementById('ListeF').style.display = "none"
+				} else { // si ce n'est pas l'un, c'est l'autre
+				var valeur = document.getElementById('ajoutFiliereNo').value;
+				document.getElementById('FNom').style.display = "none"
+				document.getElementById('ListeF').style.display = "inline"
+			}
+			
+		}
+ 
+ 		
+</script>
 <body>
 
 <header>
@@ -100,15 +116,13 @@
 	}else{
 		echo '<h4>Création d\'une filière</h4>';
 		?>
-
+		
 		<div id="Resp">
-
 			<p>Voulez vous ajouter une nouvelle filière ? 
 			<INPUT type="radio" id="ajoutFiliereYes" name="ajoutFiliere" value="oui" onchange="test();"><label>Oui</label>
 			<INPUT type="radio" id="ajoutFiliereNo" name="ajoutFiliere" value="non" onchange="test();" checked><label>Non</label>
 			</p>			
 			<p>Nom de la filière : <input type="text" id="FNom" value="<?php echo $FiliereNom;?>" style="display:none"/><span id="ListeF"><?php echo $SelectFiliere;?></span></p>
-
 			<p>Responsable : <?php echo $SelectResp;?></p>
 			
 			<p><input type="submit" value="Créer" id="newF"/></p>

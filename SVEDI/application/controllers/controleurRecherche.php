@@ -40,21 +40,53 @@ class controleurRecherche extends CI_Controller
 		}
 	}
 
-		public function AnneeMoins(){
+	public function AnneeMoins(){
+		
+		$Id=$this->session->userdata('Id_user');
+		$this->load->model('ModeleRespInscrEns');
+		$this->load->model('ModeleHome');
+		$NomF=$this->ModeleRespInscrEns->GetFiliereNom($Id);
+		
+		$AMin=$this->ModeleHome->AnneeMin($NomF);
+	
 		
 		$DateActuelle=$this->session->userdata('Date');
-		$Date= $DateActuelle - 1 ;
-		$this->session->set_userdata("Date", $Date);
+		$Date= $DateActuelle;
+		
+		if($AMin<=$DateActuelle - 1 ){
+		
+			$Date= $DateActuelle - 1 ;
+			$this->session->set_userdata("Date", $Date);
+		
+		}
+		
 		$this->loadView($Date);
+		
+		
 		
 	}
 	
 	
 	public function AnneePlus(){
 		
+		$Id=$this->session->userdata('Id_user');
+		$this->load->model('ModeleRespInscrEns');
+		$this->load->model('ModeleHome');
+		$NomF=$this->ModeleRespInscrEns->GetFiliereNom($Id);
+		
+		$AMax=$this->ModeleHome->AnneeMax($NomF);
+	
+		
 		$DateActuelle=$this->session->userdata('Date');
-		$Date= $DateActuelle + 1 ;
-		$this->session->set_userdata("Date", $Date);
+		$Date= $DateActuelle;
+		
+		if($AMax>=$DateActuelle + 1 ){
+		
+			$Date= $DateActuelle + 1 ;
+			$this->session->set_userdata("Date", $Date);
+		
+		}
+		
 		$this->loadView($Date);
 	}
 	

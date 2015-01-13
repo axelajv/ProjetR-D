@@ -42,9 +42,15 @@ class ModeleRespInscrEns extends CI_Model
 
 	}
 
-	public function GetListMatieres($idF){
+	public function GetListMatieres($Date,$Nom){
 		
-		$sql = "SELECT id,concat(nom,' (S',semestre,')') as Nom from matiere where ID_Filiere = ".$idF." order by Nom";
+		$sql = "SELECT m.id,concat(m.nom,' (S',semestre,')') as Nom
+					from matiere m
+					left outer join filiere f on f.ID = m.ID_filiere
+					where f.Nom = '".$Nom."'
+					And f.DateFiliere = ".$Date."
+	   				ORDER BY m.Nom";
+					
 		$query = $this->db->query($sql);	
 	
 		$lignes = $query->result_array();
@@ -64,8 +70,8 @@ class ModeleRespInscrEns extends CI_Model
 		return $ligne[0];
 	}
 
-	public function getListEnseignants(){
-		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(1,2) order by Nom";
+	public function getListEnseignants($Date){
+		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(1,2) and DateUtilisateur=".$Date." order by Nom";
 		$query = $this->db->query($sql);	
 	
 		$lignes = $query->result_array();

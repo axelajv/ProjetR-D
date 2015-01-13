@@ -38,8 +38,7 @@ class ModeleRespModifierFiliere extends CI_Model
 		return $lignes;
 	}
 	
-
-	public function getListMatiere($id)
+	public function getListMatiereAdmin($id)
 	{
 	   $data = array();
 
@@ -69,12 +68,45 @@ class ModeleRespModifierFiliere extends CI_Model
 		return ($data);
 
 	}
+	
+	public function getListMatiere($Date,$Nom)
+	{
+	   $data = array();
 
-	public function GetFiliereID($id){
+	   $i=0;
+
+	   $sql =	   "SELECT m.ID as M_ID, m.Nom as M_Nom, m.maxHeuresCours as M_HC, m.maxHeuresTD as M_HTD, m.maxHeuresTP as M_HTP, m.Semestre as M_Semestre
+	   				FROM matiere m 
+					left outer join filiere f on f.ID = m.ID_filiere
+					where f.Nom = '".$Nom."'
+					And f.DateFiliere = ".$Date."
+	   				ORDER BY m.Nom";
+			 
+		$query = $this->db->query($sql);	
+
+		foreach($query->result_array() as $ligne)
+		{
+			
+			$data[$i]['M_ID']= $ligne['M_ID'] ;
+			$data[$i]['M_Nom']= $ligne['M_Nom'] ;
+			$data[$i]['M_HC'] = $ligne['M_HC'] ;
+			$data[$i]['M_HTD']= $ligne['M_HTD'] ;
+			$data[$i]['M_HTP']= $ligne['M_HTP'] ;
+			$data[$i]['M_Semestre']= $ligne['M_Semestre'] ;
+
+
+			$i = $i+1;
+		}
+
+		return ($data);
+
+	}
+
+	public function GetFiliereID($Date,$Nom){
 
 		 $i=0;
 	   
-		$sql = "SELECT ID FROM Filiere where ID_Utilisateur = ".$id ;
+		$sql = "SELECT ID FROM Filiere where Nom = '".$Nom."' And DateFiliere = ".$Date."" ;
 			 
 		$query = $this->db->query($sql);	
 	
@@ -95,11 +127,8 @@ class ModeleRespModifierFiliere extends CI_Model
 
 		return $ligne;
 		
-	
-	
 	}
-
-
+	
 	public function GetFiliereResp($id){
 		$sql = "SELECT ID_Utilisateur FROM Filiere where ID = ".$id ;
 			 

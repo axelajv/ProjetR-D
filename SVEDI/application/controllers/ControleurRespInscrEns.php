@@ -7,14 +7,15 @@ class ControleurRespInscrEns extends CI_Controller
 		
 		$this->load->model('ModeleConnexion');
 	    if($this->ModeleConnexion->isLoggedIn()){
-			$this->accueil();
+			$Date=$this->session->userdata('Date');
+			$this->accueil($Date);
 		}else{
 			$this->load->view('VueConnexion/vueHeader');
   			$this->load->view('VueConnexion/vueConnexionInactive');
 			$this->load->view('VueConnexion/vueFooter');
 		}	}
 
-	public function accueil()
+	public function accueil($Date)
 	{
 		$data = array();
 		
@@ -25,33 +26,73 @@ class ControleurRespInscrEns extends CI_Controller
 		$data['FiliereNom']=$this->ModeleRespInscrEns->GetFiliereNom($Id);
 
 		$data['resp'] = "Y";
+		$data['Date'] =$Date;
+	
+		//	$this->load->view('vueHeader',$data);
 
-		$this->load->view('vueHeader',$data);
-
-		$data['Notification']=$this->RemplirInfoNotification($Id);
+		$data['Notification']=$this->RemplirInfoNotification($Id ,$Date);
 		$this->load->view('vueNav',$data);
 		
-		$data['listM'] = $this->getListM($this->getIdF($Id));
-		$data['listE'] = $this->getListE();
+		$data['listM'] = $this->getListM($Date,$this->ModeleRespInscrEns->GetFiliereNom($Id));
+		$data['listE'] = $this->getListE($Date);
 		$this->load->view('vueRespInscrEns',$data);
 		
 		$this->load->view('vueFooter');
 	
 	}
 	
-	public function RemplirInfoNotification($Id)
+	public function AnneeMoins(){
+		
+		$DateActuelle=$this->session->userdata('Date');
+		
+		if($DateActuelle > Date("Y")){
+			$Date= $DateActuelle - 1 ;
+			$this->session->set_userdata("Date", $Date);
+			$this->accueil($Date);
+		} else {
+			
+			$this->accueil($DateActuelle);
+		
+		}
+		
+	}
+	
+	
+	public function AnneePlus(){
+		
+		$Id=$this->session->userdata('Id_user');
+		$this->load->model('ModeleRespInscrEns');
+		$this->load->model('ModeleHome');
+		$NomF=$this->ModeleRespInscrEns->GetFiliereNom($Id);
+		
+		$AMax=$this->ModeleHome->AnneeMax($NomF);
+	
+		
+		$DateActuelle=$this->session->userdata('Date');
+		$Date= $DateActuelle;
+		
+		if($AMax>=$DateActuelle + 1 ){
+		
+			$Date= $DateActuelle + 1 ;
+			$this->session->set_userdata("Date", $Date);
+		
+		}
+		
+		$this->accueil($Date);
+	}
+
+	public function RemplirInfoNotification($Id ,$Date)
 	{	
 
 		$this->load->model('ModeleHome');
-		$Info=$this->ModeleHome->Get_Notification($Id);
-			
-		
+		$Info=$this->ModeleHome->Get_Notification($Id ,$Date);
 		return ($Info);
-	}
+		
+	}	
 
-	public function getListM($id){
+	public function getListM($Date,$Nom){
 		$this->load->model('ModeleRespInscrEns');
-		$Info=$this->ModeleRespInscrEns->GetListMatieres($id);		
+		$Info=$this->ModeleRespInscrEns->GetListMatieres($Date,$Nom);		
 
 		$str ='<select id="selectMatiere">';
 		$str = $str .'<option disabled selected></option>';
@@ -62,10 +103,10 @@ class ControleurRespInscrEns extends CI_Controller
 		return $str;
 	}
 
-	public function getListE(){
+	public function getListE($Date){
 		$this->load->model('ModeleRespInscrEns');
 
-		$ListUser = $this->ModeleRespInscrEns->GetListEnseignants();	
+		$ListUser = $this->ModeleRespInscrEns->GetListEnseignants($Date);	
 
 		$select ='<p><select size=10 class="selectRespInscr" id="selectEnseignants">';
 		$select = $select .'<option disabled value="-1">Liste scrollable</option>';
@@ -77,9 +118,9 @@ class ControleurRespInscrEns extends CI_Controller
 		return $select;
 	}
 
-	public function getIdF($id){
+	public function getIdF($Date,$Nom){
 		$this->load->model('ModeleRespInscrEns');
-		$Info=$this->ModeleRespInscrEns->GetFiliereID($id);		
+		$Info=$this->ModeleRespInscrEns->GetFiliereID($Date,$Nom);		
 		return ($Info);
 	}
 

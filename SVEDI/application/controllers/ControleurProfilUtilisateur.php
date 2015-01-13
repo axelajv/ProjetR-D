@@ -22,7 +22,7 @@ class ControleurProfilUtilisateur extends CI_Controller
 		
 		$Id=$this->session->userdata('Id_user');
 		$this->load->view('vueHeader');
-		
+		$data['Date']=$Date;
 		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 		$this->load->view('vueNav',$data);
 		

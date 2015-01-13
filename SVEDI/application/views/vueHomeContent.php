@@ -64,7 +64,7 @@ if($role > 1){
 	<div id="Date">
 		 <a id="gaucheDate"  href="../ControleurHome/AnneeMoins"><img alt="" src="../../assets/images/DateGaucheHeader.png"></a>
 		
-		 <label id="centreDate" value="<?php echo $this->session->userdata('Date');?>"><?php echo $Date;?></label>
+		 <label id="centreDate" value="<?php echo $Date;?>"><?php echo $Date;?></label>
 		 
 		 <a id="droiteDate"  href="../ControleurHome/AnneePlus"><img alt="" src="../../assets/images/DateDroiteHeader.png"></a>
 	</div>

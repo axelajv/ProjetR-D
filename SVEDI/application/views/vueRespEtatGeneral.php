@@ -117,9 +117,9 @@ if($role > 1){
 			} else {
 			
 			//on definit si les case doivent etre color&eacute; en fonction du cotat d'heure max
-			if ($HTP > $HTPcurrMAX) {$classTOTTP = "conflitTD";} else { if ($HTP == $HTPcurrMAX) {$classTOTTP = "fullTD";} else {$classTOTTP = "";} }
-			if ($HTD > $HTDcurrMAX) {$classTOTTD = "conflitTD";} else { if ($HTD == $HTDcurrMAX) {$classTOTTD = "fullTD";} else {$classTOTTD = "";} }
-			if ($HC > $HCcurrMAX) {$classTOTC = "conflitTD";} else { if ($HC == $HCcurrMAX) {$classTOTC = "fullTD";} else {$classTOTC = "";} }
+			if ($HTP > $HTPcurrMAX) {$classTOTTP = "conflitTD";} else { if ($HTP == $HTPcurrMAX) {$classTOTTP = "fullTD";} else {$classTOTTP = "MoiteTD";} }
+			if ($HTD > $HTDcurrMAX) {$classTOTTD = "conflitTD";} else { if ($HTD == $HTDcurrMAX) {$classTOTTD = "fullTD";} else {$classTOTTD = "MoiteTD";} }
+			if ($HC > $HCcurrMAX) {$classTOTC = "conflitTD";} else { if ($HC == $HCcurrMAX) {$classTOTC = "fullTD";} else {$classTOTC = "MoiteTD";} }
 
 				echo "<tr class=\"trBleu\"><td>Total</td><td></td><td class=\"heure ".$classTOTTP."\">".$HTP."</td><td class=\"heure ".$classTOTTD."\">".$HTD."</td><td class=\"heure ".$classTOTC."\">".$HC."</td></tr>";
 				echo "</table></br><br/><table>";
@@ -149,9 +149,9 @@ if($role > 1){
 	}
 
 	//on definit si les case doivent etre color&eacute; en fonction du cotat d'heure max
-			if ($HTP > $HTPcurrMAX) {$classTOTTP = "conflitTD";} else { if ($HTP == $HTPcurrMAX) {$classTOTTP = "fullTD";} else {$classTOTTP = "";} }
-			if ($HTD > $HTDcurrMAX) {$classTOTTD = "conflitTD";} else { if ($HTD == $HTDcurrMAX) {$classTOTTD = "fullTD";} else {$classTOTTD = "";} }
-			if ($HC > $HCcurrMAX) {$classTOTC = "conflitTD";} else { if ($HC == $HCcurrMAX) {$classTOTC = "fullTD";} else {$classTOTC = "";} }
+			if ($HTP > $HTPcurrMAX) {$classTOTTP = "conflitTD";} else { if ($HTP == $HTPcurrMAX) {$classTOTTP = "fullTD";} else {$classTOTTP = "MoiteTD";} }
+			if ($HTD > $HTDcurrMAX) {$classTOTTD = "conflitTD";} else { if ($HTD == $HTDcurrMAX) {$classTOTTD = "fullTD";} else {$classTOTTD = "MoiteTD";} }
+			if ($HC > $HCcurrMAX) {$classTOTC = "conflitTD";} else { if ($HC == $HCcurrMAX) {$classTOTC = "fullTD";} else {$classTOTC = "MoiteTD";} }
 
 		echo "<tr class=\"trBleu\"><td>Total</td><td></td><td class=\"heure ".$classTOTTP."\">".$HTP."</td><td class=\"heure ".$classTOTTD."\">".$HTD."</td><td class=\"heure ".$classTOTC."\">".$HC."</td></tr>";
 		echo "</table>";

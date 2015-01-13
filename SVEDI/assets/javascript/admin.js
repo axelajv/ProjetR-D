@@ -497,6 +497,19 @@ var xhr = null;
  });
 
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 $("#validerMM").click(function(){
 	var xhr = null;
@@ -573,7 +586,9 @@ $("#validerMA").click(function(){
 
 $("#newF").click(function(){
 
-if($('#FNom').val().length != 0 && $('#selectResp').val() != null){
+//Cas Textbox
+if($('#FNom').val().length!=0  && $('#selectResp').val() != null)
+{
 		var xhr = null;
 		
 		if (window.XMLHttpRequest || window.ActiveXObject) {
@@ -603,9 +618,49 @@ if($('#FNom').val().length != 0 && $('#selectResp').val() != null){
 		};
 		
 		xhr.open("GET", "../ControleurAdminModifierFiliere/creerF/?nom="+$("#FNom").val()+"&rid="+$("#selectResp").val(), true);
+		//echo("ok");
 
 		xhr.send(null);
+}
+//Ce que j'ai rajouté
+//Cas de la liste
+else if( $('#selectResp').val() != null)
+{
+		var xhr = null;
+		
+		if (window.XMLHttpRequest || window.ActiveXObject) {
+			if (window.ActiveXObject) {
+				try {
+					xhr = new ActiveXObject("Msxml2.XMLHTTP");
+				} catch(e) {
+					xhr = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+			} else {
+				xhr = new XMLHttpRequest(); 
+			}
+		} else {
+			alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+			closePopUp();
+			return null;
 		}
+
+		xhr.onreadystatechange = function() {
+		        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+		                // Données textuelles récupérées
+		                console.log(xhr.responseText);
+		                closePopUp();
+		                var url = "../ControleurAdminModifierFiliere/?id=new";
+		                $(location).attr('href',url).delay(250);
+		        }
+		};
+
+		xhr.open("GET", "../ControleurAdminModifierFiliere/creerF2/?nom="+$("#SelectFiliere").val()+"&rid="+$("#selectResp").val(), true);
+		//echo("ok");
+		xhr.send(null);
+		}
+// Ce que j'ai rajouté
+
+
     });
 
 

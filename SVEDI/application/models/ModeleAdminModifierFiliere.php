@@ -118,12 +118,79 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 	}
 
+	public function creerF2($nom,$id,$date){
+		$sql = "INSERT into filiere values(null,".$date.",'".$nom."',".$id.")";
+		$query = $this->db->query($sql);
+
+		$id_filiere=$this->GetIDfromfiliere($nom,$date-1);
+
+		$id_max=$this->GetIDMax();
+
+		$sql3="INSERT into matiere (Nom,MaxHeuresCours,MaxHeuresTD,MaxHeuresTP,ID_Filiere,Semestre) 
+			   SELECT Nom,MaxHeuresCours,MaxHeuresTD,MaxHeuresTP, ".$id_max."  AS ID_Filiere ,Semestre
+			   FROM matiere
+			   WHERE ID_Filiere=".$id_filiere;
+
+		//$sql3="INSERT into filiere values(null,".$date.",test,".$id.")";
+
+		$query=$this->db->query($sql3);	
+
+	}
+
+	public function GetIDMax(){
+
+		$sql="SELECT MAX(ID) as maxid FROM Filiere";
+			 
+		// On récupère l'id de la filière qui viens d'être crée 
+		$query=$this->db->query($sql);
+
+		$ligne=$query->result_array();
+
+		return $ligne[0]['maxid'];
+
+	}
+
+	public function GetIDfromfiliere($nom,$date){
+
+		$sql="SELECT ID FROM filiere Where Nom='".$nom."' AND DateFiliere=".$date;
+
+		$query=$this->db->query($sql);	
+	
+		$ligne=$query->result_array();
+
+		return $ligne[0]['ID'];
+		//$ligne = array();
+
+		/*$query =$this->db->select('ID')
+				->from('filiere')
+				->where('Nom',$name)
+				->where('DateFiliere',$date)
+				->get();
+
+		if ($query->num_rows() < 0)
+		{
+			show_error("MESSAGE ERREUR");
+		}
+		else
+		{
+			$ligne=$query->result();
+			return $ligne->ID;
+		}$*/
+	
+	}
+
 	public function GetNewFiliere(){
 
-		$sql =	   "SELECT max(ID) as ID FROM Filiere";
-			 
+		/*$sql ="SELECT max(ID) as ID FROM Filiere";
+		
 		$query = $this->db->query($sql);	
 	
+		$ligne = $query->result_array();
+
+		return $ligne[0]['ID'];*/
+
+		$this->db->select_max('ID');
+		$query = $this->db->get('filiere');
 		$ligne = $query->result_array();
 
 		return $ligne[0]['ID'];

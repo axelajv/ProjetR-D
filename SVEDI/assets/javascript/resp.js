@@ -340,6 +340,7 @@ $("#validerMA").click(function(){
 
 		xhr.send(null);
 		}
+		closePopUp();
     });
 
 
@@ -373,6 +374,8 @@ $('#Resp img[id^="MS"]').click(function(){
 	};
 	xhr.open("GET", "../ControleurRespModifierFiliere/supprM?id="+this.id.substring(2), true);
 	xhr.send(null);
+	
+	
 
 });
 
@@ -412,11 +415,11 @@ var log = function log(quoi){
 //add listener sur le click de fermeture
 $(".closePopUp").click(closePopUp);
 
-$("#modal").click(function(){
-	if(!$("#popUpMatiere").is(':hover')){
-		closePopUp();
-	}
-});
+//$("#modal").click(function(){
+//	if(!$("#popUpMatiere").is(':hover')){
+//		closePopUp();
+//	}
+//});
 
 
 });

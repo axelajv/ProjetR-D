@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -129,7 +128,7 @@ echo "<h4>R&eacute;sultat de la recherche pour \"".$Keywords."\"</h4>";
 			<tr>
 				<td>Heure de TP :</td>
 				<td class="<?php echo $ClasseTPFull;?>"><?php echo $Resultats[$i]['M_SumHTP']."/".$Resultats[$i]['HTP'];?></td>
-				<td rowspan="3"><img alt="inscription" src="../../assets/images/inscription.png"/></td>
+				<td rowspan="3"><img class="ImgInscription" alt="inscription" src="../../assets/images/inscription.png"/></td>
 			</tr>
 			<tr>
 				<td>Heure de TD :</td>
@@ -150,7 +149,7 @@ echo "<h4>R&eacute;sultat de la recherche pour \"".$Keywords."\"</h4>";
 			<input type="hidden" id="<?php echo $Resultats[$i]['M_ID'];?>-HTP" value="<?php if($Resultats[$i]['HTP']-$Resultats[$i]['M_SumHTP'] > 0){ echo $Resultats[$i]['HTP']-$Resultats[$i]['M_SumHTP'];}else{echo "0";}?>"/>
 			<input type="hidden" id="<?php echo $Resultats[$i]['M_ID'];?>-HTPMAX" value="<?php echo $Resultats[$i]['HTP'];?>"/>
 
-		<p><?php echo $Resultats[$i]['M_Nom'];?></p>
+		<p id="NomMatiere<?php echo $Resultats[$i]['M_ID'];?>"><?php echo $Resultats[$i]['M_Nom'];?></p>
 	</div>
 	<?php 
 			}

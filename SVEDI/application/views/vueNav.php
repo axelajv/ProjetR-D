@@ -18,9 +18,13 @@ if($role > 1){
 		<h2>Responsable</h2>
 		<ul>
 			<li><a href="<?php echo base_url()."ControleurRespEtatGeneral/";?>">Etat g&eacute;n&eacute;ral</a></li>
+			<?php if($Date >= Date("Y")){ 	?>
+			
 			<li><a href="<?php echo base_url()."ControleurRespModifierFiliere/";?>">Modifier ma fili&egrave;re</a></li>
 			<li><a href="<?php echo base_url()."ControleurRespInscrEns/";?>">Inscrire un enseignant &agrave; une mati&egrave;re</a></li>
 			<li><a href="<?php echo base_url()."ControleurRespDescrEns/";?>">D&eacute;sinscrire un enseignant &agrave; une mati&egrave;re</a></li>
+			
+			<?php }	?>
 		</ul>
 	</div>
 

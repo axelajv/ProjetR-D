@@ -155,7 +155,7 @@ class ControleurAdminModifierFiliere extends CI_Controller
 	{	
 
 		$this->load->model('ModeleRespModifierFiliere');
-		$Info=$this->ModeleRespModifierFiliere->getListMatiere($Id);
+		$Info=$this->ModeleRespModifierFiliere->getListMatiereAdmin($Id);
 			
 		
 		return ($Info);
@@ -236,7 +236,7 @@ class ControleurAdminModifierFiliere extends CI_Controller
 				$selected = "";
 			}
 
-			$select = $select.'<option '.$selected.' value="'.$u['ID'].'" > '.$u['Nom'].'</option>';
+			$select = $select.'<option '.$selected.' value="'.$u['Nom'].'" > '.$u['Nom'].'</option>';
 		}
 		$select = $select ."</select>";
 
@@ -247,6 +247,32 @@ class ControleurAdminModifierFiliere extends CI_Controller
 	
 	
 	}
+
+	/*public function duplicateFiliere(){
+
+		//echo "ok ok ok ok ok";
+
+	    $sql= "Select id_filiere 
+	    	   From filiere
+			   Where Nom =".$NomFiliere."";
+
+		$id_filiere = $this->db->query($sql);
+
+		$sql1="Select MAX(id) From Filiere";
+			 
+		// On récupère l'id de la filière qui viens d'être crée 
+		$id_max_filiere = $this->db->query($sql);
+
+		$sql2="Insert into matiere (`Nom`,`MaxHeuresCours`,`MaxHeuresTD`,`MaxHeuresTP`,`ID_Filiere`,`Semestre`)
+			   Select `Nom`,`MaxHeuresCours`,`MaxHeuresTD`,`MaxHeuresTP`,". $id_max_filiere. "AS `ID_Filiere`,`Semestre`
+			   From matiere
+			   Where `ID_Filiere` = ".$id_filiere.";";
+
+
+
+	
+	}*/
+
 	public function modifierM(){
 		$this->load->model('ModeleRespModifierFiliere');
 		$this->ModeleRespModifierFiliere->MM($this->input->get('id'),$this->input->get('nom'),$this->input->get('HC'),$this->input->get('HTD'),$this->input->get('HTP'),$this->input->get('semestre'));	
@@ -272,6 +298,10 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		$Info=$this->ModeleAdminModifierFiliere->creerF($this->input->get('nom'),$this->input->get('rid'),$this->session->userdata('Date'));
 	} 
 
+	public function creerF2(){
+		$this->load->model('ModeleAdminModifierFiliere');
+		$Info=$this->ModeleAdminModifierFiliere->creerF2($this->input->get('nom'),$this->input->get('rid'),$this->session->userdata('Date'));
+	} 
 
 }
 ?>

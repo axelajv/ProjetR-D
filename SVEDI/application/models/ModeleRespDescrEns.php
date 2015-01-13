@@ -64,8 +64,8 @@ class ModeleRespDescrEns extends CI_Model
 		return $ligne[0];
 	}
 
-	public function getListEnseignants(){
-		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(1,2) order by Nom";
+	public function getListEnseignants($Date){
+		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where role in(1,2) and DateUtilisateur=".$Date." order by Nom";
 		$query = $this->db->query($sql);	
 	
 		$lignes = $query->result_array();

@@ -97,7 +97,6 @@ if (MaDateclick >= DateActuelle){
 		
 		var txt = "la matiere " + monTitre;
 		
-
 		//var txt = this.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[17].innerText;
 
 		$("#popUpTitleMatiere").text(txt);
