@@ -1,6 +1,5 @@
 ##Projet R&D - Université d'Évry Val d'Essonne
 ========
-
 Le projet "Serveur de voeux" consiste en l'élaboration d'un site permettant aux enseignants de choisir les matières qu'ils souhaitent enseigner durant l'année.
 
 ###Les Objectifs
