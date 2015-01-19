@@ -16,6 +16,7 @@
 					</p>
 					<input class="button" type="submit" value="Appliquer modifications" />
 				</form>
+				<p><?php echo @$InfoDP ?></p>
 			</td>
 			<td >
 				<form action="ModificationMDP" method="POST" onsubmit=" event.preventDefault(); verifSimilitudeMdp(this,'<?php echo $DP[4] ; ?>');">
@@ -28,6 +29,7 @@
 					<br/>
 					<input class="button" type="submit" value="Changer mot de passe" />
 				</form>
+				<p><?php echo @$InfoMDP ?></p>
 			</td>
 		</tr>
 	</table>
