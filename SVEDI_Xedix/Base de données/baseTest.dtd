@@ -1,0 +1,12 @@
+<!-- DTD svedi ... -->
+<!-- (C) ... Mon Oct 27 14:01:24 2014 -->
+<!ELEMENT svedi (filiere)* >
+<!-- filiere=3 -->
+<!ELEMENT ID (#PCDATA) >
+<!-- #PCDATA=1 -->
+<!ELEMENT filiere (ID|ID_Utilisateur|Nom)* >
+<!-- ID=3 | ID_Utilisateur=3 | Nom=3 -->
+<!ELEMENT ID_Utilisateur (#PCDATA) >
+<!-- #PCDATA=1 -->
+<!ELEMENT Nom (#PCDATA) >
+<!-- #PCDATA=1 -->

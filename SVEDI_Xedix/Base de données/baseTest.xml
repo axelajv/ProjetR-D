@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE svedi SYSTEM "baseTest.dtd">
+<?XEDIX id 1 ?>
+
+<svedi>
+        <filiere>
+            <ID>"8"</ID>
+            <Nom>"MIAGE M2"</Nom>
+            <ID_Utilisateur>"42"</ID_Utilisateur>
+        </filiere>
+        <filiere>
+            <ID>"9"</ID>
+            <Nom>"MIAGE L3"</Nom>
+            <ID_Utilisateur>"36"</ID_Utilisateur>
+        </filiere>
+        <filiere>
+            <ID>"10"</ID>
+            <Nom>"test"</Nom>
+            <ID_Utilisateur>"36"</ID_Utilisateur>
+        </filiere>
+
+</svedi>
