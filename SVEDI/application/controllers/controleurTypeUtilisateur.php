@@ -4,7 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class controleurTypeUtilisateur extends CI_Controller
 {
 
-public function loadView()
+	public function loadView()
 	{
 		$dataHead['Key'] = $this->input->get('search');
 		$data['Types']= $this->getListTypes();
@@ -13,9 +13,11 @@ public function loadView()
 		$this->load->view('vueHeaderAdmin',$dataHead);
 		$this->load->view('vueTypeUtilisateur',$data);
 		$this->load->view('vueFooter');
-		}
+	
+	}
 		
-		public function index()
+	
+	public function index()
 	{	
 		$this->loadView();
 	}

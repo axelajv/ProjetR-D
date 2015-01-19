@@ -37,6 +37,9 @@ class ControleurRespInscrEns extends CI_Controller
 		$data['listE'] = $this->getListE($Date);
 		$this->load->view('vueRespInscrEns',$data);
 		
+		
+	
+		
 		$this->load->view('vueFooter');
 	
 	}

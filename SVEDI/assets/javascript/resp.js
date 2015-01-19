@@ -133,7 +133,7 @@ var xhr = null;
 			xhr.onreadystatechange = function() {
 			        if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 			                // Données textuelles récupérées
-			                //alert(xhr.responseText);
+			                alert(xhr.responseText);
 			                //console.log(xhr.responseText);
 			                $("#logMsg").text(xhr.responseText);
 			        }

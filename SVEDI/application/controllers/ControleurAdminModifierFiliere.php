@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 class ControleurAdminModifierFiliere extends CI_Controller
 {
 	public function index()
@@ -49,17 +49,30 @@ class ControleurAdminModifierFiliere extends CI_Controller
 	}
     
     public function AnneeMoins()
-    {    
-        $Date= $this->session->userdata('Date');
-        $Date = $Date-1;
-        $this->session->set_userdata("Date", $Date);
-        
-        $id = $this->input->get('id');
-        
-        $data = $this->prepareViewAdminModifierFiliere($id);
+    {
+
+	$DateActuelle=$this->session->userdata('Date');
 		
-		$this->load->view('vueAdminModifierFiliere',$data);
-		$this->load->view('vueFooter');
+		if($DateActuelle > Date("Y")){
+			$Date= $DateActuelle - 1 ;
+			$this->session->set_userdata("Date", $Date);
+			$id = $this->input->get('id');
+			$data = $this->prepareViewAdminModifierFiliere($id);
+			$this->load->view('vueAdminModifierFiliere',$data);
+			$this->load->view('vueFooter');
+		} else {
+			
+			$id = $this->input->get('id');
+			$data = $this->prepareViewAdminModifierFiliere($id);
+			$this->load->view('vueAdminModifierFiliere',$data);
+			$this->load->view('vueFooter');
+			
+		}
+	
+       
+        
+        
+   
 
     }
     
@@ -88,6 +101,11 @@ class ControleurAdminModifierFiliere extends CI_Controller
 
 		}
 		
+		if($this->input->get('error'))
+		{
+			$data['error'] = $this->input->get('error');
+		}
+		
 		return $data;
     
     }
@@ -109,7 +127,6 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		
 		$id=$this->input->get('id');
 
-		$this->load->view('vueHeaderAdmin',$data);
 
 		if($this->input->get('id')){
 			if($id == "new"){
@@ -303,5 +320,64 @@ class ControleurAdminModifierFiliere extends CI_Controller
 		$Info=$this->ModeleAdminModifierFiliere->creerF2($this->input->get('nom'),$this->input->get('rid'),$this->session->userdata('Date'));
 	} 
 
+	
+	
+	function importcsv()
+	   {
+	   
+		$this->load->model('ModeleAdminModifierFiliere');
+		$Date=$this->session->userdata('Date');
+		$id = $this->input->get('id');
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $config['max_size'] = '10000';
+ 
+        $this->load->library('upload', $config);
+		$IdFiliere = $this->input->post('ID');
+		$Matieres='';
+		
+		$listMatieres = $this->ModeleAdminModifierFiliere->GetMatieresNom($IdFiliere);
+		
+		
+		// SI problème avec le fichier annuler l'import
+        if (!$this->upload->do_upload()) 
+		{
+          
+			redirect('../ControleurAdminModifierFiliere/?id='.$IdFiliere.'&error='.$this->upload->display_errors());
+
+						
+        }
+		else  
+		{
+            $file_data = $this->upload->data();
+            $file_path =  './uploads/'.$file_data['file_name'];
+			if (($handle = fopen($file_path, 'r')) === false)
+			{
+					die('Error opening file');
+			}
+			$flag = true;
+			while (($Matieres = fgetcsv($handle, 9000, ";")) !== FALSE) 
+			{ 
+				if($flag) {$flag = false; continue;}
+				
+				if(!in_array($data[0],$listMatieres))
+				{			
+					$this->ModeleAdminModifierFiliere->insert_csv($Matieres, $IdFiliere);
+				}
+				
+				
+			}
+			
+			fclose($handle);
+            
+			redirect('../ControleurAdminModifierFiliere/?id='.$IdFiliere.'&error=Import réalisé avec succès');
+			
+			
+			
+               
+           
+            }
+ 
+        } 
 }
 ?>

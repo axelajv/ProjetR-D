@@ -30,6 +30,27 @@
 			}
 			
 		}
+		
+		function testImport()
+		{
+			if(document.getElementById('ajoutMatiereYes').checked)
+			{
+				var valeurImport = document.getElementById('ajoutMatiereYes').value;
+				document.getElementById('selectFile').style.display = "inline"
+				document.getElementById('addMatiereResp').style.display = "none"
+				document.getElementById('newFImport').style.display = "inline"
+							
+			} 
+			else 
+			{ 			
+				var valeurImport = document.getElementById('ajoutMatiereNo').value;
+				document.getElementById('selectFile').style.display = "none"
+				document.getElementById('addMatiereResp').style.display = "inline"
+				document.getElementById('newFImport').style.display = "none"
+				
+			}
+			
+		}
  
  		
 </script>
@@ -50,7 +71,8 @@
 	</div>
 	
 	<p id="deconnexion">
-		<a href="../ControleurConnexion/deconnect">D&eacute;connexion</a>
+		<a href="../ControleurConnexion/deconnect"><img alt="svedi" src="../../assets/images/Dc.png"/> D&eacute;connexion</a>
+		<a href="../ControleurProfilAdmin/"><img alt="svedi" src="../../assets/images/Profile.png"/> Mon profile</a>
 	</p>
 	
 	
@@ -105,9 +127,21 @@
 								}
 							?>
 						</table>
+						<p id="importcsv" >Voulez vous  importer les matières via un fichier csv ? 
+			<INPUT type="radio" id="ajoutMatiereYes" name="ajoutMatiere" value="oui" onchange="testImport();" ><label>Oui</label>
+			<INPUT type="radio" id="ajoutMatiereNo" name="ajoutMatiere" value="non" onchange="testImport();" checked="true"><label>Non</label>
+			</p>
+						
+		<form method="post" action="../controleurAdminModifierFiliere/importcsv" enctype="multipart/form-data">
+				<input type="hidden"  name="ID" id="IdFiliere" value="<?php echo @$FID;?>"/>
+				<p><input type="file" name="userfile" id="selectFile" style="display:none" ></p>
+              	<p ><input type="submit" name="submit" value="Créer" id="newFImport" style="display:none" /></p>
+		</form>
+						<p class="log respLog"> <?php echo @$error  ?></p>
 						<h6 id="addMatiereResp"><a href="">Ajouter une matière <img id="addMatiereRespImg" src="../../assets/images/addFiliere.png" alt="add" /></a></h6>
-
 						<p class="log respLog" id="Log"><?php echo @$Log;?></p>
+		</div>
+</div>
 		</div>
 </div>
 

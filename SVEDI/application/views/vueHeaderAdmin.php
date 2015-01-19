@@ -35,6 +35,7 @@
 	
 	<p id="deconnexion">
 		<a href="../ControleurConnexion/deconnect">D&eacute;connexion</a>
+		<a href="../ControleurAdminProfile/">Mon profile</a>
 	</p>
 	
 	

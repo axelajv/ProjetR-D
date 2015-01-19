@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 	<title>SVEDI</title>
@@ -34,12 +34,13 @@
 	</div>
 	
 	<p id="deconnexion">
-		<a href="../ControleurConnexion/deconnect">D&eacute;connexion</a>
+		<a href="../ControleurConnexion/deconnect"><img alt="svedi" src="../../assets/images/Dc.png"/> D&eacute;connexion</a>
+		<a href="../ControleurProfilAdmin/"><img alt="svedi" src="../../assets/images/Profile.png"/> Mon profile</a>
 	</p>
 	
 	
 </header>
-<div id="admin">
+<div id="admin" >
 	<input type="hidden" id="baseUrl" value="<?php echo base_url();?>"/>
 <p id="UserTypeLink"><a href="../ControleurTypeUtilisateur/">Param&eacute;trage des statuts enseignants</a></p>
 	<h4>Panneau d'administration</h4>
@@ -56,7 +57,8 @@
 					?>
 					<br/>
 					<h5>Liste des comptes utilisateurs</h5>
-					<table>
+					<!--<div id="TableUsers">-->
+					<table >
 						<tr>
 							<th width="200px">Nom</th>
 							<th width="200px">Pr&eacute;nom</th>
@@ -97,6 +99,7 @@
 							}
 						?>
 					</table>
+					<!--</div>-->
 					<p  class="log" id="ULog"><?php echo @$Log;?></p>
 				</td>
 				<td>
@@ -108,6 +111,7 @@
 				?>
 					<br/>
 					<h5>Liste des fili&egrave;res</h5>
+					<!--<div id="TableFiliere">-->
 					<table>
 						<tr>
 							<th width="200px">Nom</th>
@@ -132,8 +136,25 @@
 							}
 						?>
 					</table>
+					<!--</div>-->
 					<p class="log" id="FLog"></p>
 					</td>
+					</tr>
+			<tr>
+			<?php $Date = $this->session->userdata('Date');
+						if($Date>=date("Y"))
+						{		
+			echo'<td bgcolor="#f4f4f4">';
+				echo'<form method="post" action="../controleurAdminHome/importcsv" enctype="multipart/form-data">';
+                  echo'  <input type="file" name="userfile" ><br><br>';
+                  echo'  <input type="submit" name="submit" value="UPLOAD" class="btn btn-primary">';
+				echo'</form>';
+				}
+				 ?>
+					<p><?php echo @$error; ?></p>
+					
+			</td>
+					
 			</tr>
 		</table>
 		
@@ -149,7 +170,7 @@
 	<table>
 		<tr>
 			<td colspan="2" class="center">
-				Civilit&eacute; : &nbsp;&nbsp;&nbsp;&nbsp;<input name="Sexe" value="F" type="radio" id="r1"/> <label for="r1">Madame</label>&nbsp;&nbsp;&nbsp;&nbsp; <input name="Sexe" value="M" id="r2" type="radio"/> <label for="r2">Monsieur</label><br/><br/>
+				Civilit&eacute; : &nbsp;&nbsp;&nbsp;&nbsp;<input name="Sexe" value="F" type="radio" id="r1"/> <label for="r1">Madame</label>&nbsp;&nbsp;&nbsp;&nbsp; <input name="Sexe" value="M" id="r2" type="radio" checked="checked"/> <label for="r2">Monsieur</label><br/><br/>
 			</td>
 		</tr>
 		<tr>

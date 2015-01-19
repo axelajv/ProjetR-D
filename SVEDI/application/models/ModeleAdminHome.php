@@ -12,6 +12,30 @@ class ModeleAdminHome extends CI_Model {
 		$this->load->database();
 	
 	}
+	
+	
+// Youness
+	public function getListMailUser($DateUtilisateur)
+	{
+	   $data = array();
+
+	   $i=0;
+
+	   $sql =	   "SELECT 
+	   			mail as U_Mail
+	   			FROM  utilisateur";
+			 
+		$query = $this->db->query($sql);	
+
+		foreach($query->result_array() as $ligne)
+		{
+			
+			$data[] = $ligne['U_Mail'] ;
+		}
+
+		return($data);
+
+	}
 
 
 
@@ -21,10 +45,11 @@ class ModeleAdminHome extends CI_Model {
 	public function getListUser($DateUtilisateur)
 	{
 	   $data = array();
+	   $result = array();
 
 	   $i=0;
 
-	   $sql =	   "SELECT u.ID as U_ID,
+	   $sql2 ="SELECT u.ID as U_ID,
 	   					   u.Nom as U_Nom,
 	   					   u.Prenom as U_Pre,
 	   					   u.mail as U_Mail,
@@ -37,8 +62,27 @@ class ModeleAdminHome extends CI_Model {
 	   				FROM  utilisateur u
 	   				Where DateUtilisateur=$DateUtilisateur
 	   				ORDER BY U_Nom";
+					
+					
+		$sql =	 "SELECT   distinct(u.ID) as U_ID,
+	   					   u.Nom as U_Nom,
+	   					   u.Prenom as U_Pre,
+	   					   u.mail as U_Mail,
+	   					   u.sexe as U_Sexe,
+	   					   u.tel as U_Tel,
+	   					   u.login as U_Login,
+	   					   u.MotDePasse as U_Mdp,
+	   					   u.role as U_Role,
+	   					   u.type as U_Type
+	   				from utilisateur u inner join inscription i on u.ID = i.ID_Utilisateur
+	   				Where DateInscription=$DateUtilisateur
+	   				ORDER BY U_Nom";   
+
 			 
-		$query = $this->db->query($sql);	
+		$query = $this->db->query($sql);
+		$query1 = $this->db->query($sql2);	
+
+
 
 		foreach($query->result_array() as $ligne)
 		{
@@ -57,8 +101,41 @@ class ModeleAdminHome extends CI_Model {
 			$i = $i+1;
 		}
 
-		return ($data);
 
+		foreach($query1->result_array() as $ligne)
+		{
+			
+			$data[$i]['U_ID']= $ligne['U_ID'] ;
+			$data[$i]['U_Nom']= $ligne['U_Nom'] ;
+			$data[$i]['U_Pre'] = $ligne['U_Pre'] ;
+			$data[$i]['U_Mail']= $ligne['U_Mail'] ;
+			$data[$i]['U_Tel']= $ligne['U_Tel'] ;
+			$data[$i]['U_Login']= $ligne['U_Login'] ;
+			$data[$i]['U_Mdp'] = $ligne['U_Mdp'] ;
+			$data[$i]['U_Role']= $ligne['U_Role'] ;
+			$data[$i]['U_Sexe']= $ligne['U_Sexe'] ;
+			$data[$i]['U_Type']= $ligne['U_Type'] ;
+
+			$i = $i+1;
+		}
+
+		//supprime doublon
+
+		
+		$TablSdoublon = array();
+		$TabTemp = array();
+
+		foreach($data as $elem){
+			if (!in_array($elem["U_ID"], $TabTemp)){
+				$TablSdoublon[] = $elem;
+				$TabTemp[] = $elem["U_ID"];
+			}
+		}
+
+	
+		return ($TablSdoublon);
+	
+	
 	}
 
 
@@ -225,6 +302,14 @@ public function UtilisateurSuppression($ID_Utilisateur){
 
 		return "Utilisateur supprimée";
 }
+
+
+//Youness
+ public function insert_csv($data, $Date) {
+ 
+		$sql = "insert into utilisateur values(null,'".$Date."','".$data[0]."','".$data[1]."','".$data[2]."','".$data[3]."','".$data[4]."','".$data[5]."','".$data[6]."',".$data[7].",'".$data[8]."')";
+		$qry = $this->db->query($sql);
+    }
 	
 
 };?>

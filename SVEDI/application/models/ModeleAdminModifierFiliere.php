@@ -25,6 +25,27 @@ class ModeleAdminModifierFiliere extends CI_Model {
 		return $ligne[0]['Nom'];
 
 	}
+	
+	
+	public function GetMatieresNom($idFiliere){
+
+		 
+	   
+		$sql="SELECT Nom, ID FROM matiere where ID_Filiere = ".$idFiliere ;
+			 
+		$query = $this->db->query($sql);	
+	
+		foreach($query->result_array() as $ligne)
+		{
+			$data[] = $ligne['Nom'];
+		}
+
+		return($data);
+
+		
+
+	}
+	
 
 	public function getListResp($Date){
 		$sql = "SELECT ID, concat(nom,' ',prenom,' (',mail,')') as Nom from utilisateur where DateUtilisateur=$Date AND role in(2) order by Nom";
@@ -195,6 +216,16 @@ class ModeleAdminModifierFiliere extends CI_Model {
 
 		return $ligne[0]['ID'];
 	}
+	
+	public function insert_csv($data, $IdFiliere)
+	{		
+		
+		$sql3="INSERT into matiere (Nom,MaxHeuresCours,MaxHeuresTD,MaxHeuresTP,ID_Filiere,Semestre) 
+			   VALUES ('".$data[0]."','".$data[1]."','".$data[2]."','".$data[3]."','".$IdFiliere."','".$data[4]."')";
+
+		$query=$this->db->query($sql3);	
+
+	}	
 
 	
 }?>

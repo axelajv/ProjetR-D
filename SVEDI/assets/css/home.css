@@ -288,12 +288,33 @@ h6{
 	margin-top: 3px;
 }
 
+#deconnexion a:hover{
+
+  text-decoration: underline;
+	
+}
+
+#deconnexion a{
+ 
+text-decoration: none;  
+	
+}
+
+
+#deconnexion a img{
+
+	position: relative;
+	top:5px;
+    
+}
+
 #deconnexion{
 	float:right;
 	position: absolute;
 	right:15px;
 	top:-5px;
 	color: #005396;
+	
 }
 
 	#searchBar{
@@ -605,6 +626,8 @@ padding-top:10px;
 background: #f4f4f4;
 position: absolute;
 top:90px;
+height:79%;
+overflow:auto;
 }
 
 #admin div{
@@ -615,6 +638,19 @@ top:90px;
 
 #admin img[id]{
 	cursor: pointer;
+}
+
+#TableFiliere {
+	height: 200px;
+    overflow:auto;
+	
+}
+
+
+#TableUsers  {
+	height: 200px;
+    overflow:auto;
+	
 }
 
 
@@ -630,7 +666,7 @@ top:90px;
 	color: white;
 	background-color: #ed7f04;
 	text-align: left;
-	padding-left: 8px;
+	padding-left: 5px;
 }
 
 #admin table tr th+th{

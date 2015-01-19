@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class controleurAdminHome extends CI_Controller
 {
@@ -45,6 +45,10 @@ class controleurAdminHome extends CI_Controller
 		}
 		if($this->input->get('UA')){
 			$data['Log'] = "Compte utilisateur crée";
+		}
+		if($this->input->get('error'))
+		{
+			$data['error'] = $this->input->get('error');
 		}
 
 		//$this->load->view('vueHeaderAdmin',$dataHead);
@@ -96,7 +100,10 @@ class controleurAdminHome extends CI_Controller
 		$data['Roles'] = $this->getListRoles();
 		$data['Types'] = $this->getListTypes();
 		$data['IsStatut'] = false;	
-		
+		if($this->input->get('error'))
+		{
+			$data['error'] = $this->input->get('error');
+		}
 		$this->load->view('vueAdminHome',$data);
 	}
 	
@@ -182,9 +189,10 @@ class controleurAdminHome extends CI_Controller
 	public function FE()
 	{
 		
-	$q = " SELECT DISTINCT m.nom As NomMatiere, u.nom as NomUtilisateur,u.prenom as PrenomUtilisateur, i.NbHeuresCours,i.NbHeuresTD, i.NbHeuresTP, f.Nom as NomFiliere,u.Type as Type, m.Semestre as Semestre		FROM filiere as f, matiere as m, inscription as i, utilisateur as u,typeutilisateur as t
-				WHERE f.ID =".intval($this->input->get('id'))." AND f.ID = m.ID_filiere AND m.ID = i.ID_matiere AND u.ID = i.ID_utilisateur
-				AND u.ID = i.ID_utilisateur AND m.ID = i.ID_matiere";
+	$q = " SELECT DISTINCT m.nom As NomMatiere, u.nom as NomUtilisateur,u.prenom as PrenomUtilisateur, i.NbHeuresCours,i.NbHeuresTD, i.NbHeuresTP, f.Nom as NomFiliere,u.Type as Type, m.Semestre as Semestre
+		   FROM filiere as f, matiere as m, inscription as i, utilisateur as u,typeutilisateur as t
+		   WHERE f.ID =".intval($this->input->get('id'))." AND f.ID = m.ID_filiere AND m.ID = i.ID_matiere AND u.ID = i.ID_utilisateur
+	   	   AND u.ID = i.ID_utilisateur AND m.ID = i.ID_matiere";
 			
 
 	$q = $this->db->query($q);
@@ -261,11 +269,56 @@ foreach ($q->result() as $row) {
 
     }
 	
+	function importcsv()
+	   {
+	   
+	   $this->load->model('ModeleAdminHome');
+	   $Date=$this->session->userdata('Date');
+       $data['error'] = '';    //initialize image upload error array to empty
+	   $Users = $this->ModeleAdminHome->getListMailUser($Date);
+ 
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $config['max_size'] = '1000';
+ 
+        $this->load->library('upload', $config);
+		$insert_data = '';
+ 
+        // If upload failed, display error
+        if (!$this->upload->do_upload()) 
+		{
+            redirect('../ControleurAdminHome/?error='.$this->upload->display_errors());
+        }
+		else {
+            $file_data = $this->upload->data();
+            $file_path =  './uploads/'.$file_data['file_name'];
+			if (($handle = fopen($file_path, 'r')) === false) {
+					die('Error opening file');
+			}
 
-
+			
+			$flag = true;
+			while (($data = fgetcsv($handle, 1000, ";"))) 
+			{ 
+				if($flag) {$flag = false; continue;}
+			if(!in_array($data[5],$Users))
+				$this->ModeleAdminHome->insert_csv($data,$Date);
+				
+				
+			}
+			
+			fclose($handle);
+            
+				$data['array'] = $test;
+				redirect('../ControleurAdminHome/?error=Import réalisé avec succès');
+				
+               
+           
+            }
+ 
+        } 
 
 	
-
-
+	
 };
 ?>

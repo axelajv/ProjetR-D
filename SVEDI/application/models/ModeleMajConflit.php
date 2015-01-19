@@ -60,18 +60,33 @@ class ModeleMajConflit extends CI_Model {
 			$sql = "SELECT u.mail as mail from utilisateur u inner join filiere f on f.ID_utilisateur = u.id inner join matiere m on m.ID_filiere = f.ID where m.ID = ".$ID_Matiere;
 			$resQry = $this->db->query($sql);
 			$mail = $resQry->result_array();
-
+			
+			$sql1 = "SELECT u.mail as mail 
+					from utilisateur u inner join inscription i on i.ID_utilisateur = u.id 
+					where i.ID_Matiere = ".$ID_Matiere;
+			
+			$query =$this->db->query($sql1);
+			$result = $query->result_array();
+			
+			
 
 			$this->load->library('email');
-			$this->email->from('belkmoh@gmail.com', 'SVEDI app.');
+			$this->email->from('svedi@server.fr', 'SVEDI app.');
 			$this->email->to($mail[0]['mail']);
+			
+			$mailt="";
+			for($i=0;$i<$query->num_rows();$i++)
+			{
+				$this->email->cc($result[$i]["mail"]);
+			}
 			$this->email->subject('Conflit detecter');
 
 			$sql = "select Nom from matiere where id = ".$ID_Matiere;
 			$resQry = $this->db->query($sql);
 			$nom = $resQry->result_array();
 
-			$this->email->message("Bonjour,\n\nUn conflit à été detecter concernant la matière".$nom[0]["Nom"].".\n\nVeuillez vous connecter à l'application pour plus de détail :\n\n".base_url()."ControleurConnexion/\n\nCet E-Mail est générer automatiquement, merci de ne pas y répondre.");  
+			
+			$this->email->message($mailt." Bonjour,\n\nUn conflit à été detecter concernant la matière ".$nom[0]["Nom"].".\n\nVeuillez vous connecter à l'application pour plus de détail :\n\n".base_url()."ControleurConnexion/\n\nCet E-Mail est générer automatiquement, merci de ne pas y répondre.");  
 
 			$ret = $this->email->send();
 
