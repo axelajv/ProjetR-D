@@ -24,13 +24,13 @@
 		<a href="../controleurAdminhome/"><img alt="svedi" src="../../assets/images/SVEDI-small.png"/></a>
 	</div>
 	
-	<div id="Date">
+	<!--<div id="Date">
 		 <a id="gaucheDate"  href="../ControleurAdminHome/AnneeMoins"><img alt="" src="../../assets/images/DateGauche.png"></a>
 		
-		 <label id="centreDate" value="<?php echo $this->session->userdata('Date');?>"><?php echo $this->session->userdata('Date');?></label>
+		 <label id="centreDate" value="<?php //echo $this->session->userdata('Date');?>"><?php //echo $this->session->userdata('Date');?></label>
 		 
 		 <a id="droiteDate"  href="../ControleurAdminHome/AnneePlus"><img alt="" src="../../assets/images/DateDroite.png"></a>
-	</div>
+	</div>-->
 	
 	<p id="deconnexion">
 		<a href="../ControleurConnexion/deconnect"><img alt="svedi" src="../../assets/images/Dc.png"/> D&eacute;connexion</a>

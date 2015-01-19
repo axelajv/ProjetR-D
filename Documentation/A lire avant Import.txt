@@ -1,0 +1,20 @@
+Pourl’import utiliser le fichier « Template », mise à disposition. Garder l’entête intact.
+
+Les lignes csv ne doivent pas être entre guillemets 
+
+
+Pour l'import utilisateur:
+
+la colonne Rôle accepte un chiffre entre 1 et 3.
+
+1:L'utilisateur aura le rôle d'enseignant
+
+2:L'utilisateur aura le rôle de responsable
+
+3:L'utilisateur aura le rôle d'administrateur
+
+
+pour l'import des matières :
+
+La colonne semestre accepte uniquement un chiffre (1 , 2, 3 ou 4)
+

@@ -147,7 +147,7 @@
 			echo'<td bgcolor="#f4f4f4">';
 				echo'<form method="post" action="../controleurAdminHome/importcsv" enctype="multipart/form-data">';
                   echo'  <input type="file" name="userfile" ><br><br>';
-                  echo'  <input type="submit" name="submit" value="UPLOAD" class="btn btn-primary">';
+                  echo'  <input type="submit" name="submit" value="Créer" class="btn btn-primary">';
 				echo'</form>';
 				}
 				 ?>
