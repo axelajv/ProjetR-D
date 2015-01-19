@@ -49,12 +49,12 @@ class ControleurHome extends CI_Controller
 		$DateActuelle=$this->session->userdata('Date');
 		$Date= $DateActuelle;
 		
-		if($AMin<=$DateActuelle - 1 ){
+		//if($AMin<=$DateActuelle - 1 ){
 		
 			$Date= $DateActuelle - 1 ;
 			$this->session->set_userdata("Date", $Date);
 		
-		}
+		//}
 		
 		$this->accueil($Date);
 	}
@@ -73,12 +73,12 @@ class ControleurHome extends CI_Controller
 		$DateActuelle=$this->session->userdata('Date');
 		$Date= $DateActuelle;
 		
-		if($AMax>=$DateActuelle + 1 ){
+	//	if($AMax>=$DateActuelle + 1 ){
 		
 			$Date= $DateActuelle + 1 ;
 			$this->session->set_userdata("Date", $Date);
 		
-		}
+	//	}
 		
 		$this->accueil($Date);
 	}

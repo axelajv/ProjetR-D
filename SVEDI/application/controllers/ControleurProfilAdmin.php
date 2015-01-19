@@ -16,12 +16,19 @@ class ControleurProfilAdmin extends CI_Controller
 		}
 	}
 
-	public function accueil($Date)
+	public function accueil()
 	{
 		$data = array();
 		
 		$Id=$this->session->userdata('Id_user');
-		$data['Date']=$Date;
+		if($this->input->get('InfoMDP'))
+		{
+			$data['InfoMDP'] = $this->input->get('InfoMDP');
+		}
+		if($this->input->get('InfoDP'))
+		{
+			$data['InfoDP'] = $this->input->get('InfoDP');
+		}
 		
 		$data['DP']=$this->RemplirFormulaireDP($Id);
 		$this->load->view('vueProfilAdminContent',$data);
@@ -42,7 +49,7 @@ class ControleurProfilAdmin extends CI_Controller
 		$this->load->model('ModeleProfilUtilisateur');
 		$this->ModeleProfilUtilisateur->Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel,$Sexe);
 		
-	    $this->accueil();
+	    redirect('../controleurProfilAdmin/?InfoDP=Modification effectué avec succès');;
 	}
 	
 	public function ModificationMDP()
@@ -58,7 +65,7 @@ class ControleurProfilAdmin extends CI_Controller
 		
 		if($Mdp1 == $Mdp2) $this->ModeleProfilUtilisateur->Modification_MDP($Id,$Mdp2);
 		
-		$this->accueil();
+		redirect('../controleurProfilAdmin/?InfoMDP=Modification effectué avec succès');
 	}
 
 	public function RemplirFormulaireDP($Id)

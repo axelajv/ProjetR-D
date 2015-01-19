@@ -63,7 +63,7 @@ class controleurAdminHome extends CI_Controller
         $Date = $Date+1;
         $this->session->set_userdata("Date", $Date);
         
-    	$this->prepareViewHeader($Date); 
+    	//$this->prepareViewHeader($Date); 
     	   
     	$this->prepareViewBody($Date);
     
@@ -76,7 +76,7 @@ class controleurAdminHome extends CI_Controller
         $Date = $Date-1;
         $this->session->set_userdata("Date", $Date);
         
-    	$this->prepareViewHeader($Date); 
+    	//$this->prepareViewHeader($Date); 
     	   
     	$this->prepareViewBody($Date);
     
@@ -93,6 +93,10 @@ class controleurAdminHome extends CI_Controller
 	
 	public function prepareViewBody($Date)
 	{	
+	
+		$data['Key'] = $this->input->get('search');
+	
+		
 		$data['Id_user']=$this->session->userdata('Id_user');
 		$date['Date']=$Date;
 		$data['Users']= $this->getListUser($Date);

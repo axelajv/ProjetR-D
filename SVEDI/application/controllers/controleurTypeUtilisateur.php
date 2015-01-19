@@ -6,11 +6,11 @@ class controleurTypeUtilisateur extends CI_Controller
 
 	public function loadView()
 	{
-		$dataHead['Key'] = $this->input->get('search');
+		$data['Key'] = $this->input->get('search');
 		$data['Types']= $this->getListTypes();
-		$dataHead['IsStatut'] = true;
+		$data['IsStatut'] = true;
 
-		$this->load->view('vueHeaderAdmin',$dataHead);
+		//$this->load->view('vueHeaderAdmin',$dataHead);
 		$this->load->view('vueTypeUtilisateur',$data);
 		$this->load->view('vueFooter');
 	
@@ -23,9 +23,9 @@ class controleurTypeUtilisateur extends CI_Controller
 	}
 	
 	public function log(){
-		$dataHead['Key'] = $this->input->get('search');
+		$data['Key'] = $this->input->get('search');
 		$data['Types'] = $this->getListTypes();
-		$dataHead['IsStatut'] = true;
+		$data['IsStatut'] = true;
 
 
 		if($this->input->get('SM')){
@@ -35,7 +35,7 @@ class controleurTypeUtilisateur extends CI_Controller
 			$data['Log'] = "Nouveau Statut crée";
 		}
 
-		$this->load->view('vueHeaderAdmin',$dataHead);
+		//$this->load->view('vueHeaderAdmin',$dataHead);
 		$this->load->view('vueTypeUtilisateur',$data);
 		$this->load->view('vueFooter');
 	}

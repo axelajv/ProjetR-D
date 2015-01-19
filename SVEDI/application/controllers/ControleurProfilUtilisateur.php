@@ -25,7 +25,14 @@ class ControleurProfilUtilisateur extends CI_Controller
 		$data['Date']=$Date;
 		$data['Notification']=$this->RemplirInfoNotification($Id,$Date);
 		$this->load->view('vueNav',$data);
-		
+		if($this->input->get('InfoMDP'))
+		{
+			$data['InfoMDP'] = $this->input->get('InfoMDP');
+		}
+		if($this->input->get('InfoDP'))
+		{
+			$data['InfoDP'] = $this->input->get('InfoDP');
+		}
 		$data['DP']=$this->RemplirFormulaireDP($Id);
 		$this->load->view('vueProfilUtilisateurContent',$data);
 		
@@ -45,7 +52,7 @@ class ControleurProfilUtilisateur extends CI_Controller
 		$this->load->model('ModeleProfilUtilisateur');
 		$this->ModeleProfilUtilisateur->Modification_DP($Id,$Nom,$Prenom,$Mail,$Tel,$Sexe);
 		
-	    $this->accueil();
+	    redirect('../controleurProfilUtilisateur/?InfoDP=Modification effectué avec succès');
 	}
 	
 	public function ModificationMDP()
@@ -61,7 +68,7 @@ class ControleurProfilUtilisateur extends CI_Controller
 		
 		if($Mdp1 == $Mdp2) $this->ModeleProfilUtilisateur->Modification_MDP($Id,$Mdp2);
 		
-		$this->accueil();
+		redirect('../controleurProfilUtilisateur/?InfoMDP=Modification effectué avec succès');
 	}
 
 	public function RemplirFormulaireDP($Id)
